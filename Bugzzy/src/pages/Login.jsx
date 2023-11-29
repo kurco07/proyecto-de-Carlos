@@ -43,7 +43,7 @@ export function Login() {
             <Box position={"absolute"} top={"15px"}>
               <img
                 className="img-logo"
-                src="./public/assets/amigos.jpeg"
+                src="./assets/amigos.jpeg"
                 alt="bugzzy logo"
               />
             </Box>

@@ -5,7 +5,6 @@ import { Login } from "./pages/Login";
 import AppRouter from "./react router dom/AppRouter";
 
 export function App() {
-  // return <ChangePassword />;
   return (
     <>
       <BrowserRouter>
