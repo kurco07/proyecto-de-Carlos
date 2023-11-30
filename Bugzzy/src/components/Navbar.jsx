@@ -79,19 +79,21 @@ export function Navbar({ isLoggedIn }) {
           ) : (
             // Contenido cuando el usuario no ha iniciado sesión
             <>
-              <Button
-                color="inherit"
-                variant="contained"
-                sx={{
-                  bgcolor: "#C5DD4A",
-                  borderRadius: "13%",
-                  padding: "13px",
-                  color: "black",
-                }}
-              >
-                Registrarse
-              </Button>
-              <Link variant="caption" to="/homepage" component={Routerlink}>
+              <Link variant="caption" to="/register" component={Routerlink}>
+                <Button
+                  color="inherit"
+                  variant="contained"
+                  sx={{
+                    bgcolor: "#C5DD4A",
+                    borderRadius: "13%",
+                    padding: "13px",
+                    color: "black",
+                  }}
+                >
+                  Registrarse
+                </Button>
+              </Link>
+              <Link variant="caption" to="/login" component={Routerlink}>
                 <Button color="inherit">Iniciar Sesión</Button>
               </Link>
             </>

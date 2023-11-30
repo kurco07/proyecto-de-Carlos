@@ -105,21 +105,29 @@ export function Login() {
           </Grid>
 
           <Grid xs={12} display="flex" justifyContent="center">
-            <Button
-              sx={{
-                bgcolor: "#C5DD4A",
-                color: "#2E3963",
-                borderRadius: "15px",
-                textTransform: "none",
-                fontWeight: "bold",
-              }}
-              variant="contained"
-              type="submit"
-              fullWidth
+            <Link
+              variant="caption"
+              to="/homepage"
+              component={Routerlink}
+              style={{ width: "100%" }}
             >
-              Iniciar sesión
-            </Button>
+              <Button
+                sx={{
+                  bgcolor: "#C5DD4A",
+                  color: "#2E3963",
+                  borderRadius: "15px",
+                  textTransform: "none",
+                  fontWeight: "bold",
+                }}
+                variant="contained"
+                fullWidth
+                type="submit"
+              >
+                Iniciar sesión
+              </Button>
+            </Link>
           </Grid>
+
           <Grid xs={12} display="flex" justifyContent="center">
             <Link variant="caption" to="/register" component={Routerlink}>
               <Button
