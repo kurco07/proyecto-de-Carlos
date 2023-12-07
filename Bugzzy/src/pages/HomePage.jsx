@@ -16,6 +16,14 @@ import { Navbar } from "../components/Navbar";
 const isLoggedIn = true;
 
 const HomePage = () => {
+  const staffMembers = [
+    {
+      name: "Nombre del Miembro",
+      position: "Cargo del Miembro",
+      bio: "Breve biografía o descripción del miembro.",
+    },
+    // Puedes agregar más miembros aquí
+  ];
   return (
     <div>
       {/* Barra de Navegación */}
@@ -23,13 +31,15 @@ const HomePage = () => {
 
       {/* Contenido Principal */}
       <Container sx={{ marginTop: "100px" }}>
-        <Box mt={3}>
+        {/*prueba*/}
+
+        <Box mt={3} position="relative">
           {/* Imagen centrada */}
-          <Box position="relative" height="100vh" overflow="hidden">
+          <Box>
             <img
               src="./assets/pregrado.jpg"
               alt="Imagen Bienvenida"
-              style={{ width: "100%", height: "auto" }}
+              style={{ width: "100%", height: "80vh" }}
             />
 
             {/* Botón "Explorar Cursos" */}
@@ -50,11 +60,12 @@ const HomePage = () => {
             {/* Mensaje de Bienvenida y Descripción */}
             <Box
               position="absolute"
-              top="50%"
-              left="50%"
-              transform="translate(-50%, -50%)"
               textAlign="center"
               color="white"
+              display="flex"
+              top="10%"
+              left="25%"
+              flexDirection="column"
             >
               <Typography variant="h4" gutterBottom>
                 Bienvenido a Tu Plataforma
@@ -66,6 +77,7 @@ const HomePage = () => {
             </Box>
           </Box>
         </Box>
+
         {/* Secciones de Cursos Destacados */}
         <Grid container spacing={3}>
           {/* Curso Destacado 1 */}
@@ -167,6 +179,75 @@ const HomePage = () => {
                 </Typography>
               </Box>
             </Grid>
+          </Grid>
+        </Box>
+
+        {/* Contenido de "Acerca de Nosotros" */}
+        <Box mt={3}>
+          <Typography variant="h4" align="center" gutterBottom>
+            Acerca de Nosotros
+          </Typography>
+          <Typography variant="h6" align="center" paragraph>
+            Somos una plataforma dedicada a proporcionar educación en línea de
+            alta calidad. Nuestra misión es facilitar el acceso a cursos
+            impartidos por instructores expertos en diversos campos.
+          </Typography>
+
+          {/* Información Adicional */}
+          <Grid container spacing={3} justifyContent="center">
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" align="center" gutterBottom>
+                Nuestra Historia
+              </Typography>
+              <Typography align="justify">
+                Desde nuestro inicio, nos hemos comprometido a ofrecer a
+                nuestros estudiantes una experiencia educativa enriquecedora.
+                Con un enfoque en la calidad, diversidad y accesibilidad, hemos
+                crecido para convertirnos en una plataforma líder en educación
+                en línea.
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" align="center" gutterBottom>
+                Nuestro Equipo
+              </Typography>
+              <Typography align="justify">
+                Contamos con un equipo de instructores y profesionales
+                apasionados que están dedicados a brindar el mejor contenido
+                educativo. Nos esforzamos por crear un entorno en el que los
+                estudiantes puedan aprender y crecer.
+              </Typography>
+            </Grid>
+          </Grid>
+        </Box>
+
+        {/* Contenido de "Staff" */}
+
+        <Box mt={3}>
+          <Typography variant="h4" align="center" gutterBottom>
+            Nuestro Staff
+          </Typography>
+
+          {/* Lista de Miembros del Staff */}
+          <Grid container spacing={3}>
+            {staffMembers.map((member, index) => (
+              <Grid item xs={12} md={4} key={index}>
+                <Box textAlign="center">
+                  <Typography variant="h6" gutterBottom>
+                    {member.name}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    {member.position}
+                  </Typography>
+                  <Typography>{member.bio}</Typography>
+                </Box>
+              </Grid>
+            ))}
           </Grid>
         </Box>
       </Container>

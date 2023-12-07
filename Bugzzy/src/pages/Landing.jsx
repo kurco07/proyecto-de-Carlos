@@ -6,7 +6,7 @@ import { Bar } from "../components/Bar";
 import Section from "../components/Section";
 import SectionServicios from "../components/SectionServicios";
 
-export const Home = () => {
+export const Landing = () => {
   const isLoggedIn = false;
   return (
     <>
@@ -15,8 +15,8 @@ export const Home = () => {
         <img className="bg-home" src="./assets/pregrado.jpg" alt="" />
       </Box>
       <Bar
-        texto1="Bienvenido a Buggzy"
-        texto2="Somos su apoyo en la etapa de aprendizaje"
+        texto1="BIENVENIDO A BUGGZY"
+        texto2="SOMOS SU APOYO EN LA ETAPA DE APRENDIZAJE"
       />
 
       <Section />
