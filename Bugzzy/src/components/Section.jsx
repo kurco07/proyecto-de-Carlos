@@ -13,7 +13,7 @@ const Section = () => {
             style={{ width: "100%", height: "auto" }}
           />
           <Typography variant="h6" gutterBottom>
-            Título de la Imagen 1
+            EDUCATIVO
           </Typography>
           <Typography variant="subtitle1">
             Descripción de la imagen 1.
@@ -30,7 +30,7 @@ const Section = () => {
             style={{ width: "100%", height: "auto" }}
           />
           <Typography variant="h6" gutterBottom>
-            Título de la Imagen 2
+            INTUITIVO
           </Typography>
           <Typography variant="subtitle1">
             Descripción de la imagen 2.
@@ -47,7 +47,7 @@ const Section = () => {
             style={{ width: "100%", height: "auto" }}
           />
           <Typography variant="h6" gutterBottom>
-            Título de la Imagen 3
+            ACCESIBLE
           </Typography>
           <Typography variant="subtitle1">
             Descripción de la imagen 3.

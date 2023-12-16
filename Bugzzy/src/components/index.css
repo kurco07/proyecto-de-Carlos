@@ -27,3 +27,11 @@
   position: relative;
   margin-top: 20px; 
 }
+
+.img-home {
+  /* min-height: 90vh; */
+  position: relative;
+  /* top: -35px; */
+  background-color: rgb(60, 60, 60);
+  background-blend-mode: soft-light;
+}

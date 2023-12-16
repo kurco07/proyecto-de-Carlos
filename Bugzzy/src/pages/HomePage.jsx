@@ -30,16 +30,17 @@ const HomePage = () => {
       <Navbar isLoggedIn={isLoggedIn} />
 
       {/* Contenido Principal */}
-      <Container sx={{ marginTop: "100px" }}>
+      <Container sx={{ marginTop: "65px" }}>
         {/*prueba*/}
 
         <Box mt={3} position="relative">
           {/* Imagen centrada */}
-          <Box>
+          <Box t>
             <img
+              className="img-home"
               src="./assets/pregrado.jpg"
               alt="Imagen Bienvenida"
-              style={{ width: "100%", height: "80vh" }}
+              style={{ width: "100%", height: "50vh" }}
             />
 
             {/* Botón "Explorar Cursos" */}
