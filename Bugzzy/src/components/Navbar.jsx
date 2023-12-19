@@ -111,6 +111,14 @@ export function Navbar({ isLoggedIn }) {
           >
             Inicio
           </ListItem>
+          <ListItem
+            button
+            onClick={handleDrawerClose}
+            component={RouterLink}
+            to="/ReproductorMP4"
+          >
+            Reproductor
+          </ListItem>
           {isLoggedIn && (
             <ListItem
               button
