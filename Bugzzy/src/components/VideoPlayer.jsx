@@ -1,8 +1,11 @@
 import React from 'react'
 
-const VideoPlayer = () => {
+const VideoPlayer = ({src}) => {
     return (
-        <div>VideoPlayer</div>
+        <div className='relative border shadow-2xl shadow-black rounded-md overflow-hidden w-[900px] h-[500px] drop-shadow-sm group'>
+            <video src={src} className='w-full h-full object-cover ' controls></video>
+
+        </div>
     )
 }
 
