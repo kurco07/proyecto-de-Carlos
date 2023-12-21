@@ -18,7 +18,7 @@ const AppRouter = () => {
       <Route index path="/reset" element={<Reset />} />
       <Route index path="/homepage" element={<HomePage />} />
       <Route index path="/mycourses" element={<MyCourses />} />
-      <Route index path="/reproductormp4" element={<ReproductorMP4/>} />
+      <Route index path="/reproductormp4" element={<ReproductorMP4 labelText="Nombre del Curso" />} />
     </Routes>
   );
 };
