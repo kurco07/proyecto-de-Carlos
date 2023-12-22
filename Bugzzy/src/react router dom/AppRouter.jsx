@@ -11,10 +11,13 @@ import MyCourses from "../pages/MyCourses";
 const AppRouter = () => {
   // Define tus imágenes y etiquetas aquí
   const images = [
-    { src: 'https://i1.sndcdn.com/artworks-jed24yeHGhe9LXDz-ZRaA5A-t500x500.jpg', label: 'Etiqueta 1' },
-    { src: 'https://t2.ea.ltmcdn.com/es/posts/4/2/1/el_erizo_como_mascota_2124_600_square.jpg', label: 'Etiqueta 2' },
-    { src: 'https://i.pinimg.com/736x/09/1d/85/091d8519fd798d73f21823ddaac2d34d.jpg', label: 'Etiqueta 3' },
+    { src: 'https://i1.sndcdn.com/artworks-jed24yeHGhe9LXDz-ZRaA5A-t500x500.jpg', label: 'Título Capitulo Curso', secondaryLabel: 'Nombre del Curso', thirdLabel: 'Blaquiti Blaquiti BlaBlaBla' },
+    { src: 'https://t2.ea.ltmcdn.com/es/posts/4/2/1/el_erizo_como_mascota_2124_600_square.jpg', label: 'Etiqueta 2', secondaryLabel: 'Texto secundario 2', thirdLabel: 'Texto terciario 2' },
+    { src: 'https://i.pinimg.com/736x/09/1d/85/091d8519fd798d73f21823ddaac2d34d.jpg', label: 'Etiqueta 3', secondaryLabel: 'Texto secundario 3', thirdLabel: 'Texto terciario 3' },
   ];
+  
+  
+
 
   return (
     <Routes>
