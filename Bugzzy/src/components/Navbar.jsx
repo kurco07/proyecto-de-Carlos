@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from 'prop-types'; // Se importó 'PropTypes'
 import {
   AppBar,
   Box,
@@ -32,7 +33,6 @@ export function Navbar({ isLoggedIn }) {
   };
 
   const handleSearch = () => {
-    // Lógica para manejar la búsqueda
     console.log("Realizar búsqueda...");
   };
 
@@ -111,6 +111,14 @@ export function Navbar({ isLoggedIn }) {
           >
             Inicio
           </ListItem>
+          <ListItem
+            button
+            onClick={handleDrawerClose}
+            component={RouterLink}
+            to="/ReproductorMP4"
+          >
+            Reproductor
+          </ListItem>
           {isLoggedIn && (
             <ListItem
               button
@@ -126,3 +134,10 @@ export function Navbar({ isLoggedIn }) {
     </div>
   );
 }
+
+// Se agregó la validación de PropTypes para isLoggedIn
+Navbar.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
+
+
