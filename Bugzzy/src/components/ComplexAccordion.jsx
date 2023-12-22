@@ -20,7 +20,7 @@ const ImageAccordion = ({ images }) => {
             <Typography style={{color: 'var(--Secondary-color, #141E34)', fontSize: '25px', fontStyle: 'normal', fontWeight: '700', lineHeight: '40px', letterSpacing: '-0.16px', textTransform: 'uppercase', paddingLeft:'50px'}}>Capítulos del Curso</Typography>
             </AccordionSummary>
             <AccordionDetails>
-            <div style={{display: 'flex', flexDirection: 'column'}}>
+            <div style={{display: 'flex', flexDirection: 'column', paddingLeft:'20px'}}>
                 {images.map((image, index) => (
                 <ImageButton key={index} image={image} />
                 ))}

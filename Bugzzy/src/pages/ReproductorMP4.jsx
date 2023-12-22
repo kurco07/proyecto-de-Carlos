@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import SimpleAccordion from "../components/SimpleAccordion";
-import ComplexAccordion from "../components/ComplexAccordion"; // Importa el componente ComplexAccordion
+import ComplexAccordion from "../components/ComplexAccordion";
+import CommentAccordion from "../components/CommentAccordion"; // Importa el componente CommentAccordion
+import Footer from "../components/Footer";
 import VideoPlayer from "../components/VideoPlayer";
 import video from "../assets/videos/video.mp4";
 import { SearchNavbar } from "../components/SearchNavbar";
 
-const ReproductorMP4 = ({ title, description, labelText, secondLabelText, thirdLabelText, images }) => {
+const ReproductorMP4 = ({ title, description, labelText, secondLabelText, thirdLabelText, images, comments }) => {
     return( 
-        <div>
+        <div style={{ paddingBottom: '50px' }}> {/* Aquí se agrega el relleno */}
             <SearchNavbar/> {/* Aquí se pasa la prop showSearchBar */}
             <div style={{backgroundColor: 'black'}}>
                 <div className="flex justify-center items-center mt-16">
@@ -25,6 +27,8 @@ const ReproductorMP4 = ({ title, description, labelText, secondLabelText, thirdL
             </div>
             <SimpleAccordion title={title} description={ description}/>
             <ComplexAccordion images={images} /> {/* Aquí se usa el componente ComplexAccordion */}
+            <CommentAccordion comments={comments} /> {/* Aquí se usa el componente CommentAccordion */}
+            <Footer/>
         </div>
     );
 }
@@ -42,9 +46,19 @@ ReproductorMP4.propTypes = {
             label: PropTypes.string.isRequired,
         })
     ).isRequired,
+    comments: PropTypes.arrayOf(
+        PropTypes.shape({
+            image: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired,
+        })
+    ).isRequired,
 };
 
 export default ReproductorMP4;
+
+
+
 
 
 
