@@ -6,12 +6,31 @@ import {
   Link,
   Box,
 } from "@mui/material";
+import { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { Link as Routerlink } from "react-router-dom";
 
 const Register = () => {
+
+  const initialCredentials = {
+    username: '',
+    email: '',
+    cedula: '',
+    password: ''
+  }
+
+  const [credentials, setCredentials] = useState(initialCredentials)
+
+  const getData = (key, value) => setCredentials({ ...credentials, [key]: value })
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+
+    console.log(credentials)
+  }
+
   return (
-    <form className="bg-login">
+    <form onSubmit={onSubmit} className="bg-login">
       <Grid
         container
         columnSpacing={0}
@@ -72,10 +91,12 @@ const Register = () => {
                 backgroundColor: "#D2EAFF",
                 borderRadius: "15px",
               }}
-              name="email"
+              name="username"
               fullWidth
               label="Nombre de usuario"
-              type="email"
+              type="text"
+              onChange={({ target }) => getData("username", target.value)}
+
               size="small"
             />
           </Grid>
@@ -86,10 +107,11 @@ const Register = () => {
                 backgroundColor: "#D2EAFF",
                 borderRadius: "15px",
               }}
-              name="email"
+              name="cedula"
               fullWidth
               label="Cedula"
-              type="email"
+              type="text"
+              onChange={({ target }) => getData("cedula", target.value)}
               size="small"
             />
           </Grid>
@@ -104,6 +126,7 @@ const Register = () => {
               fullWidth
               label="Correo electrónico"
               type="email"
+              onChange={({ target }) => getData("email", target.value)}
               size="small"
             />
           </Grid>
@@ -117,6 +140,7 @@ const Register = () => {
               name="password"
               fullWidth
               label="Contraseña"
+              onChange={({ target }) => getData("password", target.value)}
               type="password"
               size="small"
             />
@@ -147,6 +171,7 @@ const Register = () => {
               }}
               variant="contained"
               type="submit"
+
               fullWidth
             >
               Registrarse
