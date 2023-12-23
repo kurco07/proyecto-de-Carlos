@@ -8,26 +8,57 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import { Link as Routerlink } from "react-router-dom";
-
+import { Navigate, Link as Routerlink } from "react-router-dom";
+import { crearCuenta } from "../services/usuarios";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
+
+  const navigate = useNavigate()
 
   const initialCredentials = {
     username: '',
     email: '',
     cedula: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   }
 
   const [credentials, setCredentials] = useState(initialCredentials)
 
   const getData = (key, value) => setCredentials({ ...credentials, [key]: value })
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
-    console.log(credentials)
+    if (credentials.confirmPassword === credentials.password) {
+      try {
+        const newUser = await crearCuenta({
+          cedula: credentials.cedula,
+          correo_electronico: credentials.email,
+          rol: 'Estudiante',
+          usuario: credentials.username,
+          clave: credentials.password
+        })
+
+        if (newUser.correo_electronico) {
+          setTimeout(() => {
+            navigate('/homepage')
+            console.log(newUser)
+          }, 3000);
+
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    } else {
+      console.log('Clave mala  uwu')
+    }
+
+
+
   }
+
 
   return (
     <form onSubmit={onSubmit} className="bg-login">
@@ -83,7 +114,9 @@ const Register = () => {
 
           <Grid>
             <Divider />
+
           </Grid>
+
 
           <Grid xs={12}>
             <TextField
@@ -153,9 +186,11 @@ const Register = () => {
                 borderRadius: "15px",
               }}
               name="password"
+              onChange={({ target }) => getData("confirmPassword", target.value)}
               fullWidth
               label="Confirmar contraseña"
               type="password"
+
               size="small"
             />
           </Grid>
