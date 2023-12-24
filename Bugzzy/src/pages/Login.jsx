@@ -8,16 +8,39 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { Link as Routerlink } from "react-router-dom";
+import { login } from "../services/usuarios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export function Login() {
+  const navigate = useNavigate()
+
+  const initialCredentials = {
+    cedula: '',
+    password: ''
+  }
+
+  const [credentials, setCredentials] = useState(initialCredentials)
+
+  const getData = (key, value) => setCredentials({ ...credentials, [key]: value })
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
 
 
+    try {
+      const isUserExist = await login(credentials.cedula)
 
+      if (isUserExist.cedula === credentials.cedula && isUserExist.clave === credentials.password) {
+        console.log('Loged!')
+        navigate('/homepage')
+      }
 
-
-
-
+    } catch (e) {
+      console.log(e)
+    }
+  }
   return (
-    <form className="bg-login">
+    <form onSubmit={onSubmit} className="bg-login">
       <Grid
         container
         columnSpacing={0}
@@ -74,26 +97,24 @@ export function Login() {
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
-              name="email"
+              required
+              variant="filled"
+              name="cedula"
               fullWidth
-              label="Correo electrónico"
-              type="email"
+              label="Cedula"
+              type="text"
               size="small"
+              onChange={({ target }) => getData("cedula", target.value)}
             />
           </Grid>
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
+              required
+              onChange={({ target }) => getData("password", target.value)}
               name="password"
               fullWidth
+              variant="filled"
               label="Contraseña"
               type="password"
               size="small"
@@ -112,27 +133,21 @@ export function Login() {
           </Grid>
 
           <Grid xs={12} display="flex" justifyContent="center">
-            <Link
-              variant="caption"
-              to="/homepage"
-              component={Routerlink}
-              style={{ width: "100%" }}
+
+            <Button
+              sx={{
+                bgcolor: "#C5DD4A",
+                color: "#2E3963",
+                borderRadius: "15px",
+                textTransform: "none",
+                fontWeight: "bold",
+              }}
+              variant="contained"
+              fullWidth
+              type="submit"
             >
-              <Button
-                sx={{
-                  bgcolor: "#C5DD4A",
-                  color: "#2E3963",
-                  borderRadius: "15px",
-                  textTransform: "none",
-                  fontWeight: "bold",
-                }}
-                variant="contained"
-                fullWidth
-                type="submit"
-              >
-                Iniciar sesión
-              </Button>
-            </Link>
+              Iniciar sesión
+            </Button>
           </Grid>
 
           <Grid xs={12} display="flex" justifyContent="center">
@@ -193,4 +208,5 @@ export function Login() {
       </Grid>
     </form>
   );
+
 }

@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { Navigate, Link as Routerlink } from "react-router-dom";
-import { crearCuenta } from "../services/usuarios";
+import { register } from "../services/usuarios";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
 
@@ -32,7 +32,7 @@ const Register = () => {
 
     if (credentials.confirmPassword === credentials.password) {
       try {
-        const newUser = await crearCuenta({
+        const newUser = await register({
           cedula: credentials.cedula,
           correo_electronico: credentials.email,
           rol: 'Estudiante',
@@ -120,10 +120,7 @@ const Register = () => {
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
+              variant="filled"
               name="username"
               fullWidth
               label="Nombre de usuario"
@@ -137,10 +134,7 @@ const Register = () => {
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
+              variant="filled"
               name="cedula"
               fullWidth
               required
@@ -153,10 +147,7 @@ const Register = () => {
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
+              variant="filled"
               name="email"
               required
               fullWidth
@@ -169,10 +160,7 @@ const Register = () => {
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
+              variant="filled"
               name="password"
               fullWidth
               required
@@ -185,10 +173,7 @@ const Register = () => {
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
+              variant="filled"
               name="password"
               onChange={({ target }) => getData("confirmPassword", target.value)}
               fullWidth
