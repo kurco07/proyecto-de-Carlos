@@ -127,6 +127,7 @@ const Register = () => {
               name="username"
               fullWidth
               label="Nombre de usuario"
+              required
               type="text"
               onChange={({ target }) => getData("username", target.value)}
 
@@ -142,6 +143,7 @@ const Register = () => {
               }}
               name="cedula"
               fullWidth
+              required
               label="Cedula"
               type="text"
               onChange={({ target }) => getData("cedula", target.value)}
@@ -156,6 +158,7 @@ const Register = () => {
                 borderRadius: "15px",
               }}
               name="email"
+              required
               fullWidth
               label="Correo electrónico"
               type="email"
@@ -172,6 +175,7 @@ const Register = () => {
               }}
               name="password"
               fullWidth
+              required
               label="Contraseña"
               onChange={({ target }) => getData("password", target.value)}
               type="password"
@@ -188,6 +192,7 @@ const Register = () => {
               name="password"
               onChange={({ target }) => getData("confirmPassword", target.value)}
               fullWidth
+              required
               label="Confirmar contraseña"
               type="password"
 

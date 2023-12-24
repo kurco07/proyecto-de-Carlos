@@ -15,11 +15,11 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link as RouterLink } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 export function Navbar({ isLoggedIn }) {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
+  const navigate = useNavigate()
   const handleSearchToggle = () => {
     setIsSearchExpanded(!isSearchExpanded);
   };
@@ -69,7 +69,7 @@ export function Navbar({ isLoggedIn }) {
                   />
                 )}
                 <Button color="inherit">Mi Perfil</Button>
-                <Button color="inherit">Cerrar Sesión</Button>
+                <Button onClick={() => navigate('/login')} color="inherit">Cerrar Sesión</Button>
               </>
             ) : (
               <>
