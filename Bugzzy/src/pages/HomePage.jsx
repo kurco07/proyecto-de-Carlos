@@ -7,10 +7,13 @@ import {
 } from "@mui/material";
 import { Navbar } from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import { obtenerCursos } from "../services/cursos";
+import { useState, useEffect } from "react";
 const isLoggedIn = true;
 
 const HomePage = () => {
   const navigate = useNavigate()
+  const [cursos, setCursos] = useState([])
   const staffMembers = [
     {
       name: "Nombre del Miembro",
@@ -25,6 +28,20 @@ const HomePage = () => {
 
   }
 
+  useEffect(() => {
+
+    const cargarCursos = async () => {
+      const response = await obtenerCursos()
+
+      setCursos(response)
+    }
+
+    cargarCursos()
+
+
+  }, [])
+
+  console.log(cursos)
 
 
   return (
@@ -85,56 +102,26 @@ const HomePage = () => {
         {/* Secciones de Cursos Destacados */}
         <Grid container spacing={3} mt={'10px'}>
 
-          {/* Curso Destacado 1 */}
-          <Grid item xs={12} sm={4}>
+          {cursos.map(({ idPublicacion, tituloPublicacion, descripcionPublicacion }) => <Grid key={idPublicacion} item xs={12} sm={4}>
             {/* Aquí puedes colocar la imagen y los detalles del curso */}
-            <Box border="1px solid #ddd" borderRadius="8px" p={2}>
+            <Box border="1px solid #ddd" height={'220px'} borderRadius="8px" p={2}>
               <Typography variant="h6" gutterBottom>
-                JavaScript
+                {tituloPublicacion}
               </Typography>
-              <Typography>
-                Descripción del curso destacado. Puedes agregar más detalles
-                aquí.
+              <Typography height={'80px'}>
+                {descripcionPublicacion.slice(0, 100)}...
               </Typography>
-              <Button onClick={() => verCurso('12345')} variant="contained" color="primary">
+              <Button sx={{ mt: '10px' }} onClick={() => verCurso(idPublicacion)} variant="contained" color="primary">
                 Ver Curso
               </Button>
             </Box>
           </Grid>
 
-          {/* Curso Destacado 2 */}
-          <Grid item xs={12} sm={4}>
-            {/* Aquí puedes colocar la imagen y los detalles del curso */}
-            <Box border="1px solid #ddd" borderRadius="8px" p={2}>
-              <Typography variant="h6" gutterBottom>
-                Java
-              </Typography>
-              <Typography>
-                Descripción del curso destacado. Puedes agregar más detalles
-                aquí.
-              </Typography>
-              <Button onClick={() => verCurso('123456')} variant="contained" color="primary">
-                Ver Curso
-              </Button>
-            </Box>
-          </Grid>
 
-          {/* Curso Destacado 3 */}
-          <Grid item xs={12} sm={4}>
-            {/* Aquí puedes colocar la imagen y los detalles del curso */}
-            <Box border="1px solid #ddd" borderRadius="8px" p={2}>
-              <Typography variant="h6" gutterBottom>
-                React
-              </Typography>
-              <Typography>
-                Descripción del curso destacado. Puedes agregar más detalles
-                aquí.
-              </Typography>
-              <Button onClick={() => verCurso('1234567')} variant="contained" color="primary">
-                Ver Curso
-              </Button>
-            </Box>
-          </Grid>
+          )}
+
+
+
         </Grid>
 
         {/* Sección de Testimonios */}
