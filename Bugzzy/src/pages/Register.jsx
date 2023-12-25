@@ -42,7 +42,7 @@ const Register = () => {
 
         if (newUser.correo_electronico) {
           setTimeout(() => {
-            navigate('/homepage')
+            navigate('/login')
             console.log(newUser)
           }, 3000);
 

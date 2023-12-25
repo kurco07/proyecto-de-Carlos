@@ -11,17 +11,28 @@ import { Link as Routerlink } from "react-router-dom";
 import { login } from "../services/usuarios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ContextoLogin } from "../useContext/LoginContext";
+import { useContext, useEffect } from "react";
 export function Login() {
   const navigate = useNavigate()
-
+  const { Loged, setLoged } = useContext(ContextoLogin)
   const initialCredentials = {
     cedula: '',
     password: ''
   }
 
+
+
   const [credentials, setCredentials] = useState(initialCredentials)
 
   const getData = (key, value) => setCredentials({ ...credentials, [key]: value })
+
+
+  useEffect(() => {
+    if (Loged) navigate('/homepage')
+
+  }, [Loged, navigate])
+
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -31,8 +42,8 @@ export function Login() {
       const isUserExist = await login(credentials.cedula)
 
       if (isUserExist.cedula === credentials.cedula && isUserExist.clave === credentials.password) {
-        console.log('Loged!')
-        navigate('/homepage')
+        setLoged(true)
+        localStorage.setItem('Loged', true)
       }
 
     } catch (e) {
