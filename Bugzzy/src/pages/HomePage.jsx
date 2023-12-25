@@ -1,22 +1,15 @@
-import React from "react";
 import {
-  AppBar,
   Box,
   Button,
   Container,
   Grid,
-  IconButton,
-  Toolbar,
   Typography,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom"; // Asegúrate de tener React Router instalado
 import { Navbar } from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 const isLoggedIn = true;
 
 const HomePage = () => {
-
   const navigate = useNavigate()
   const staffMembers = [
     {
@@ -29,6 +22,7 @@ const HomePage = () => {
 
   const verCurso = (curso) => {
     navigate(`/reproductorMP4/${curso}`)
+
   }
 
 
