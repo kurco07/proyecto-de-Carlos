@@ -12,10 +12,12 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom"; // Asegúrate de tener React Router instalado
 import { Navbar } from "../components/Navbar";
-
+import { useNavigate } from "react-router-dom";
 const isLoggedIn = true;
 
 const HomePage = () => {
+
+  const navigate = useNavigate()
   const staffMembers = [
     {
       name: "Nombre del Miembro",
@@ -24,6 +26,13 @@ const HomePage = () => {
     },
     // Puedes agregar más miembros aquí
   ];
+
+  const verCurso = (curso) => {
+    navigate(`/reproductorMP4/${curso}`)
+  }
+
+
+
   return (
     <div>
       {/* Barra de Navegación */}
@@ -80,19 +89,20 @@ const HomePage = () => {
         </Box>
 
         {/* Secciones de Cursos Destacados */}
-        <Grid container spacing={3}>
+        <Grid container spacing={3} mt={'10px'}>
+
           {/* Curso Destacado 1 */}
           <Grid item xs={12} sm={4}>
             {/* Aquí puedes colocar la imagen y los detalles del curso */}
             <Box border="1px solid #ddd" borderRadius="8px" p={2}>
               <Typography variant="h6" gutterBottom>
-                Curso Destacado 1
+                JavaScript
               </Typography>
               <Typography>
                 Descripción del curso destacado. Puedes agregar más detalles
                 aquí.
               </Typography>
-              <Button variant="contained" color="primary">
+              <Button onClick={() => verCurso('12345')} variant="contained" color="primary">
                 Ver Curso
               </Button>
             </Box>
@@ -103,13 +113,13 @@ const HomePage = () => {
             {/* Aquí puedes colocar la imagen y los detalles del curso */}
             <Box border="1px solid #ddd" borderRadius="8px" p={2}>
               <Typography variant="h6" gutterBottom>
-                Curso Destacado 2
+                Java
               </Typography>
               <Typography>
                 Descripción del curso destacado. Puedes agregar más detalles
                 aquí.
               </Typography>
-              <Button variant="contained" color="primary">
+              <Button onClick={() => verCurso('123456')} variant="contained" color="primary">
                 Ver Curso
               </Button>
             </Box>
@@ -120,13 +130,13 @@ const HomePage = () => {
             {/* Aquí puedes colocar la imagen y los detalles del curso */}
             <Box border="1px solid #ddd" borderRadius="8px" p={2}>
               <Typography variant="h6" gutterBottom>
-                Curso Destacado 3
+                React
               </Typography>
               <Typography>
                 Descripción del curso destacado. Puedes agregar más detalles
                 aquí.
               </Typography>
-              <Button variant="contained" color="primary">
+              <Button onClick={() => verCurso('1234567')} variant="contained" color="primary">
                 Ver Curso
               </Button>
             </Box>
