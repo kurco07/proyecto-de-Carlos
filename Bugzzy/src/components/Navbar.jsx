@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PropTypes from 'prop-types'; // Se importó 'PropTypes'
+import PropTypes from "prop-types"; // Se importó 'PropTypes'
 import {
   AppBar,
   Box,
@@ -68,7 +68,9 @@ export function Navbar({ isLoggedIn }) {
                     onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                   />
                 )}
-                <Button color="inherit">Mi Perfil</Button>
+                <Button color="inherit" component={RouterLink} to="/profile">
+                  Mi Perfil
+                </Button>
                 <Button color="inherit">Cerrar Sesión</Button>
               </>
             ) : (
@@ -139,5 +141,3 @@ export function Navbar({ isLoggedIn }) {
 Navbar.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
-
-

@@ -13,7 +13,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom"; // Asegúrate de tener React Router instalado
 import { Navbar } from "../components/Navbar";
 
-const isLoggedIn = true;
+const isLoggedIn = true; 
 
 const HomePage = () => {
   const staffMembers = [
@@ -27,7 +27,7 @@ const HomePage = () => {
   return (
     <div>
       {/* Barra de Navegación */}
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar isLoggedIn={isLoggedIn} /> 
 
       {/* Contenido Principal */}
       <Container sx={{ marginTop: "65px" }}>
