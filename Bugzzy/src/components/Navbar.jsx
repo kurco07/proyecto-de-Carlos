@@ -53,18 +53,25 @@ export function Navbar({ isLoggedIn }) {
         sx={{
           top: "0",
           width: "100%",
-          zIndex: "1",
+          zIndex: "100",
           backgroundColor: "#141E34",
           color: "#C5DD4A",
         }}
       >
-        <Toolbar>
-          <IconButton color="inherit" onClick={handleDrawerOpen}>
-            <MenuIcon />
-          </IconButton>
-          <Typography sx={{ flexGrow: 1, fontWeight: "bold" }} variant="h6">
-            Bugzzy
-          </Typography>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}
+        >
+          <Box>
+            <IconButton color="inherit" onClick={handleDrawerOpen}>
+              <MenuIcon />
+            </IconButton>
+            <Button onClick={() => navigate('/homepage')} sx={{ fontWeight: "bold", maxWidth: '100px' }} variant="h6">
+              Bugzzy
+            </Button>
+          </Box>
           <Box>
             {isLoggedIn ? (
               <>
@@ -78,7 +85,7 @@ export function Navbar({ isLoggedIn }) {
                     onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                   />
                 )}
-                <Button color="inherit">Mi Perfil</Button>
+                <Button onClick={() => navigate('/profile')} color="inherit">Mi Perfil</Button>
                 <Button onClick={() => logOut()} color="inherit">
                   Cerrar Sesión
                 </Button>

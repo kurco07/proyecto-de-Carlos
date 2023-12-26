@@ -10,6 +10,7 @@ import MyCourses from "../pages/MyCourses";
 import { LoginContextProvider } from "../useContext/LoginContext";
 import { ProtectedLogin } from "./ProtectedRoutes";
 import { useParams } from "react-router-dom";
+import Profile from "../pages/Profile";
 
 const AppRouter = () => {
   // Define tus imágenes y etiquetas aquí
@@ -66,6 +67,8 @@ const AppRouter = () => {
           }
         />
         <Route index path="/mycourses" element={<MyCourses />} />
+        <Route index path="/profile" element={<Profile />} />
+
         <Route
           index
           path="/reproductormp4/:id/:id_capitulo"
