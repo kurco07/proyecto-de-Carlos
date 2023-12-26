@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { Navbar } from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import { obtenerCursos } from "../services/cursos";
+import { capitloCursos, obtenerCursos } from "../services/cursos";
 import { useState, useEffect } from "react";
 const isLoggedIn = true;
 
@@ -24,7 +24,7 @@ const HomePage = () => {
   ];
 
   const verCurso = (curso) => {
-    navigate(`/reproductorMP4/${curso}`)
+    navigate(`/reproductorMP4/${curso}/0`)
 
   }
 
@@ -32,8 +32,8 @@ const HomePage = () => {
 
     const cargarCursos = async () => {
       const response = await obtenerCursos()
-
-      setCursos(response)
+      const playlist = await capitloCursos()
+      setCursos({ playlist, response })
     }
 
     cargarCursos()
@@ -100,29 +100,35 @@ const HomePage = () => {
         </Box>
 
         {/* Secciones de Cursos Destacados */}
-        <Grid container spacing={3} mt={'10px'}>
+        {cursos.response && (
 
-          {cursos.map(({ idPublicacion, tituloPublicacion, descripcionPublicacion }) => <Grid key={idPublicacion} item xs={12} sm={4}>
-            {/* Aquí puedes colocar la imagen y los detalles del curso */}
-            <Box border="1px solid #ddd" height={'220px'} borderRadius="8px" p={2}>
-              <Typography variant="h6" gutterBottom>
-                {tituloPublicacion}
-              </Typography>
-              <Typography height={'80px'}>
-                {descripcionPublicacion.slice(0, 100)}...
-              </Typography>
-              <Button sx={{ mt: '10px' }} onClick={() => verCurso(idPublicacion)} variant="contained" color="primary">
-                Ver Curso
-              </Button>
-            </Box>
-          </Grid>
+          <>
+            <Grid container spacing={3} mt={'10px'}>
+
+              {cursos.response.map(({ idPublicacion, tituloPublicacion, descripcionPublicacion }) => <Grid key={idPublicacion} item xs={12} sm={4}>
+                {/* Aquí puedes colocar la imagen y los detalles del curso */}
+                <Box border="1px solid #ddd" height={'220px'} borderRadius="8px" p={2}>
+                  <Typography variant="h6" gutterBottom>
+                    {tituloPublicacion}
+                  </Typography>
+                  <Typography height={'80px'}>
+                    {descripcionPublicacion.slice(0, 100)}...
+                  </Typography>
+                  <Button sx={{ mt: '10px' }} onClick={() => verCurso(idPublicacion)} variant="contained" color="primary">
+                    Ver Curso
+                  </Button>
+                </Box>
+              </Grid>
 
 
-          )}
+              )}
 
 
 
-        </Grid>
+            </Grid>
+          </>
+        )}
+
 
         {/* Sección de Testimonios */}
         <Box mt={5}>
