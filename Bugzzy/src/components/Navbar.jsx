@@ -15,10 +15,20 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link as RouterLink } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ContextoLogin } from "../useContext/LoginContext";
 export function Navbar({ isLoggedIn }) {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const navigate = useNavigate();
+  const { Loged, setLoged } = useContext(ContextoLogin);
+
+  const logOut = () => {
+    setLoged(!Loged);
+    localStorage.removeItem("Loged");
+    navigate("/login");
+  };
 
   const handleSearchToggle = () => {
     setIsSearchExpanded(!isSearchExpanded);
@@ -68,10 +78,10 @@ export function Navbar({ isLoggedIn }) {
                     onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                   />
                 )}
-                <Button color="inherit" component={RouterLink} to="/profile">
-                  Mi Perfil
+                <Button color="inherit">Mi Perfil</Button>
+                <Button onClick={() => logOut()} color="inherit">
+                  Cerrar Sesión
                 </Button>
-                <Button color="inherit">Cerrar Sesión</Button>
               </>
             ) : (
               <>
