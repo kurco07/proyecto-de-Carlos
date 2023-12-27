@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { capitloCursos, obtenerCursoPorId } from '../services/cursos';
 import { login } from '../services/usuarios';
+import { Navbar } from '../components/Navbar';
 const ReproductorMP4 = ({ comments }) => {
     const { id, id_capitulo } = useParams()
     const [curso, setCurso] = useState({})
@@ -38,7 +39,7 @@ const ReproductorMP4 = ({ comments }) => {
             {
                 curso.publicacion && (
                     <div style={{ paddingBottom: '50px' }}> {/* Aquí se agrega el relleno */}
-                        <SearchNavbar /> {/* Aquí se pasa la prop showSearchBar */}
+                        <Navbar isLoggedIn />
                         {curso.filterPlayList && (<>
                             <div style={{ backgroundColor: 'black' }}>
                                 <div className="flex justify-center items-center mt-16">
