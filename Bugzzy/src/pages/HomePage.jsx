@@ -13,11 +13,14 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import StarIcon from '@mui/icons-material/Star';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { login } from "../services/usuarios";
+
 const isLoggedIn = true;
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [cursos, setCursos] = useState([]);
+  const [currentUser, setCurrentUser] = useState({})
   const staffMembers = [
     {
       name: "Carlos Ternera",
@@ -28,7 +31,7 @@ const HomePage = () => {
     {
       name: "Pedro Liccioni",
       position: "Frontend Developer",
-      bio: "Estudiante de 8vo semestre de ingenieria de sistemas.",
+      bio: "En cada commit que hacia se caia la app.",
     },
 
     {
@@ -59,7 +62,9 @@ const HomePage = () => {
     const cargarCursos = async () => {
       const response = await obtenerCursos();
       const playlist = await capitloCursos();
+      const getUser = await login(localStorage.getItem('cedula'))
       setCursos({ playlist, response });
+      setCurrentUser(getUser)
     };
 
     cargarCursos();
@@ -67,7 +72,7 @@ const HomePage = () => {
   const handleSearch = () => {
     console.log("Realizar búsqueda...");
   };
-  console.log(cursos);
+  console.log(cursos, currentUser);
 
   return (
     <div style={{
@@ -100,13 +105,13 @@ const HomePage = () => {
           </Box>
 
           <Box display={'flex'} gap={'10px'} flexDirection={'column'} justifyContent={'center'} padding={'20px'} width={'670px'} height={'150px'} mt={'20px'} bgcolor={'#C5DD4A'} borderRadius={'0.75rem'}>
-            <Typography fontWeight={700}>Bienvenido de vuelta Carlos!</Typography>
+            <Typography fontWeight={700}>Bienvenido de vuelta {currentUser.usuario}!</Typography>
 
             <Box display={'flex'} alignItems={'center'} gap={'10px'}>
               <SchoolIcon />
-              <Typography fontSize={'13px'}> Estudiante | carlosternera46@gmail.com | Telne</Typography>
+              <Typography fontSize={'13px'}> {currentUser.rol} | {currentUser.correo_electronico} | {currentUser.usuario}</Typography>
             </Box>
-            <Box component={'button'} sx={{
+            <Box onClick={(() => navigate('/profile'))} component={'button'} sx={{
               '&:hover': {
 
                 scale: '1 1.05'

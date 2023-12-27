@@ -10,18 +10,21 @@ import { Button, TextField } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { comentar, comentariosCursos } from '../services/cursos';
 import { useParams } from 'react-router-dom';
+import { login } from '../services/usuarios';
 
 const CommentAccordion = () => {
     const [comentario, setComentario] = useState('')
     const [cargarComents, setCargarComents] = useState([])
     const { id_capitulo } = useParams()
-
+    const [currentUser, setCurrentUser] = useState('')
     useEffect(() => {
 
         const cargarData = async () => {
             const comentarios = await comentariosCursos()
             const comentariosFilter = comentarios.filter(({ idCapituloPublicacion }) => idCapituloPublicacion == id_capitulo)
+            const getUser = await login(localStorage.getItem('cedula'))
             setCargarComents(comentariosFilter)
+            setCurrentUser(getUser)
         }
 
         cargarData()
@@ -32,7 +35,7 @@ const CommentAccordion = () => {
         const response = await comentar({
             "comentario": comentario,
             "idCapituloPublicacion": id_capitulo,
-            "cedulaComentarista": "12127736"
+            "cedulaComentarista": currentUser.cedula
         })
         setCargarComents([...cargarComents, response]);
         setComentario('')

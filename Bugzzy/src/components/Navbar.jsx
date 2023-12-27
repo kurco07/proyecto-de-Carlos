@@ -5,14 +5,11 @@ import {
   Box,
   Button,
   Toolbar,
-  Typography,
-  InputBase,
   IconButton,
   Drawer,
   List,
   ListItem,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -27,12 +24,11 @@ export function Navbar({ isLoggedIn }) {
   const logOut = () => {
     setLoged(!Loged);
     localStorage.removeItem("Loged");
+    localStorage.removeItem("cedula");
+
     navigate("/login");
   };
 
-  const handleSearchToggle = () => {
-    setIsSearchExpanded(!isSearchExpanded);
-  };
 
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
@@ -42,9 +38,7 @@ export function Navbar({ isLoggedIn }) {
     setIsDrawerOpen(false);
   };
 
-  const handleSearch = () => {
-    console.log("Realizar búsqueda...");
-  };
+
 
   return (
     <div>
@@ -150,14 +144,6 @@ export function Navbar({ isLoggedIn }) {
               Mis Cursos
             </ListItem>
           )}
-          <ListItem
-            button
-            onClick={handleDrawerClose}
-            component={RouterLink}
-            to="/ImportVideo"
-          >
-            Importar Video
-          </ListItem>
         </List>
       </Drawer>
     </div >

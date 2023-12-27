@@ -44,6 +44,7 @@ export function Login() {
       if (isUserExist.cedula === credentials.cedula && isUserExist.clave === credentials.password) {
         setLoged(true)
         localStorage.setItem('Loged', true)
+        localStorage.setItem('cedula', credentials.cedula)
       }
 
     } catch (e) {
