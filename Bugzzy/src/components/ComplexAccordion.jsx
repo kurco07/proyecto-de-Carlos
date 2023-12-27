@@ -1,6 +1,4 @@
-// ImageAccordion.js
-import React from 'react';
-import PropTypes from 'prop-types';
+
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';

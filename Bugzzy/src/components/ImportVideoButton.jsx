@@ -10,16 +10,17 @@ function ImportVideoButton() {
 
     return (
         <div>
-        <Button variant="contained" component="label" style={{ backgroundColor: '#15665A', color: 'white' }}>
-            Importar vídeo
-            <input
-            type="file"
-            hidden
-            accept="video/*"
-            onChange={handleFileChange}
-            />
-        </Button>
-        {videoFile && <p>Archivo seleccionado: {videoFile.name}</p>}
+            <Button variant="contained" component="label" style={{ backgroundColor: '#15665A', color: 'white' }}>
+                Importar vídeo
+                <input
+                    multiple
+                    type="file"
+                    hidden
+                    accept="video/*"
+                    onChange={handleFileChange}
+                />
+            </Button>
+            {videoFile && <p>Archivo seleccionado: {videoFile.name}</p>}
         </div>
     );
 }

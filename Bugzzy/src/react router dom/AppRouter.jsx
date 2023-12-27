@@ -59,6 +59,8 @@ const AppRouter = () => {
         <Route index path="/login" element={<Login />} />
         <Route index path="/register" element={<Register />} />
         <Route index path="/reset" element={<Reset />} />
+        <Route index path="/cargarVideo" element={<ImportVideo />} />
+
         <Route
           index
           path="/homepage"
