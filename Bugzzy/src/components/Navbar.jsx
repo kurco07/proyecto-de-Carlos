@@ -150,6 +150,14 @@ export function Navbar({ isLoggedIn }) {
               Mis Cursos
             </ListItem>
           )}
+          <ListItem
+            button
+            onClick={handleDrawerClose}
+            component={RouterLink}
+            to="/ImportVideo"
+          >
+            Importar Video
+          </ListItem>
         </List>
       </Drawer>
     </div >
