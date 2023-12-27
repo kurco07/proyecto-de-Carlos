@@ -64,7 +64,7 @@ const ReproductorMP4 = ({ comments }) => {
                         <div style={{ marginLeft: '15%', fontSize: '32px', fontWeight: '700', letterSpacing: '-0.16px', textTransform: 'uppercase', color: '#141E34', lineHeight: '40px' }}>
                             <p style={{ color: 'var(--input-icon-color, #979CB6)', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '40px', letterSpacing: '-0.16px', textTransform: 'uppercase' }}>{curso.creador.usuario}</p>
                         </div>
-                        <SimpleAccordion title={'Descripcion'} description={curso.publicacion.descripcionPublicacion} />
+                        <SimpleAccordion title={'Descripcion'} description={curso.publicacion} />
 
                         <ComplexAccordion capitulos={curso.filterPlayList} creador={curso.creador.usuario} /> {/* Aquí se usa el componente ComplexAccordion */}
 
