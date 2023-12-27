@@ -66,3 +66,48 @@ export const capitloCursos = async () => {
   }
 }
 
+export const comentariosCursos = async () => {
+  try {
+    const response = await fetch(`${URL}/c_p/`, {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const comentar = async (data = {}) => {
+  try {
+    const response = await fetch(`${URL}/c_p/`, {
+      method: 'post',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data)
+    })
+
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
