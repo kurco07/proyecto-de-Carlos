@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PropTypes from 'prop-types'; // Se importó 'PropTypes'
+import PropTypes from "prop-types"; // Se importó 'PropTypes'
 import {
   AppBar,
   Box,
@@ -15,10 +15,20 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link as RouterLink } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ContextoLogin } from "../useContext/LoginContext";
 export function Navbar({ isLoggedIn }) {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const navigate = useNavigate();
+  const { Loged, setLoged } = useContext(ContextoLogin);
+
+  const logOut = () => {
+    setLoged(!Loged);
+    localStorage.removeItem("Loged");
+    navigate("/login");
+  };
 
   const handleSearchToggle = () => {
     setIsSearchExpanded(!isSearchExpanded);
@@ -43,33 +53,44 @@ export function Navbar({ isLoggedIn }) {
         sx={{
           top: "0",
           width: "100%",
-          zIndex: "1",
-          backgroundColor: "#141E34",
+          zIndex: "9999999",
+          backgroundColor: "#13161c",
           color: "#C5DD4A",
+          borderBottom: '1px solid #2d323a'
         }}
       >
-        <Toolbar>
-          <IconButton color="inherit" onClick={handleDrawerOpen}>
-            <MenuIcon />
-          </IconButton>
-          <Typography sx={{ flexGrow: 1, fontWeight: "bold" }} variant="h6">
-            Bugzzy
-          </Typography>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}
+        >
+          <Box display={'flex'} gap={'5px'}>
+            <IconButton sx={{
+              display: {
+                xs: 'block',
+                sm: 'block',
+                md: 'none',
+
+              }
+            }} color="inherit" onClick={handleDrawerOpen}>
+              <MenuIcon />
+            </IconButton>
+            <Button onClick={() => navigate('/homepage')} sx={{ fontWeight: "bold", maxWidth: '100px' }} variant="h6">
+              <img style={{ marginRight: '10px' }} width={40} height={40} src="assets/logo.svg"></img>
+
+              Bugzzy
+            </Button>
+          </Box>
+
           <Box>
             {isLoggedIn ? (
               <>
-                <IconButton color="inherit" onClick={handleSearchToggle}>
-                  <SearchIcon />
-                </IconButton>
-                {isSearchExpanded && (
-                  <InputBase
-                    placeholder="Buscar..."
-                    sx={{ ml: 1, color: "inherit" }}
-                    onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-                  />
-                )}
-                <Button color="inherit">Mi Perfil</Button>
-                <Button color="inherit">Cerrar Sesión</Button>
+
+                <Button onClick={() => navigate('/profile')} color="inherit">Mi Perfil</Button>
+                <Button onClick={() => logOut()} color="inherit">
+                  Cerrar Sesión
+                </Button>
               </>
             ) : (
               <>
@@ -139,7 +160,7 @@ export function Navbar({ isLoggedIn }) {
           </ListItem>
         </List>
       </Drawer>
-    </div>
+    </div >
   );
 }
 
@@ -147,5 +168,3 @@ export function Navbar({ isLoggedIn }) {
 Navbar.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
-
-

@@ -6,12 +6,62 @@ import {
   Link,
   Box,
 } from "@mui/material";
+import { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import { Link as Routerlink } from "react-router-dom";
-
+import { Navigate, Link as Routerlink } from "react-router-dom";
+import { register } from "../services/usuarios";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
+
+  const navigate = useNavigate()
+
+  const initialCredentials = {
+    username: '',
+    email: '',
+    cedula: '',
+    password: '',
+    confirmPassword: ''
+  }
+
+  const [credentials, setCredentials] = useState(initialCredentials)
+
+  const getData = (key, value) => setCredentials({ ...credentials, [key]: value })
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+
+    if (credentials.confirmPassword === credentials.password) {
+      try {
+        const newUser = await register({
+          cedula: credentials.cedula,
+          correo_electronico: credentials.email,
+          rol: 'Estudiante',
+          usuario: credentials.username,
+          clave: credentials.password
+        })
+
+        if (newUser.correo_electronico) {
+          setTimeout(() => {
+            navigate('/login')
+            console.log(newUser)
+          }, 3000);
+
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    } else {
+      console.log('Clave mala  uwu')
+    }
+
+
+
+  }
+
+
   return (
-    <form className="bg-login">
+    <form onSubmit={onSubmit} className="bg-login">
       <Grid
         container
         columnSpacing={0}
@@ -64,59 +114,58 @@ const Register = () => {
 
           <Grid>
             <Divider />
+
           </Grid>
+
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
-              name="email"
+              variant="filled"
+              name="username"
               fullWidth
               label="Nombre de usuario"
-              type="email"
+              required
+              type="text"
+              onChange={({ target }) => getData("username", target.value)}
+
               size="small"
             />
           </Grid>
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
-              name="email"
+              variant="filled"
+              name="cedula"
               fullWidth
+              required
               label="Cedula"
-              type="email"
+              type="text"
+              onChange={({ target }) => getData("cedula", target.value)}
               size="small"
             />
           </Grid>
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
+              variant="filled"
               name="email"
+              required
               fullWidth
               label="Correo electrónico"
               type="email"
+              onChange={({ target }) => getData("email", target.value)}
               size="small"
             />
           </Grid>
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
+              variant="filled"
               name="password"
               fullWidth
+              required
               label="Contraseña"
+              onChange={({ target }) => getData("password", target.value)}
               type="password"
               size="small"
             />
@@ -124,14 +173,14 @@ const Register = () => {
 
           <Grid xs={12}>
             <TextField
-              sx={{
-                backgroundColor: "#D2EAFF",
-                borderRadius: "15px",
-              }}
+              variant="filled"
               name="password"
+              onChange={({ target }) => getData("confirmPassword", target.value)}
               fullWidth
+              required
               label="Confirmar contraseña"
               type="password"
+
               size="small"
             />
           </Grid>
@@ -147,6 +196,7 @@ const Register = () => {
               }}
               variant="contained"
               type="submit"
+
               fullWidth
             >
               Registrarse
