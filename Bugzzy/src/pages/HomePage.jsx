@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, IconButton, InputBase, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, Container, Grid, IconButton, InputBase, Typography } from "@mui/material";
 import { Navbar } from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { capitloCursos, obtenerCursos } from "../services/cursos";
@@ -14,11 +14,13 @@ import StarIcon from '@mui/icons-material/Star';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { login } from "../services/usuarios";
+import ProfesorNotofication from "../components/ProfesorNotofication";
 
 const isLoggedIn = true;
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(true)
   const [cursos, setCursos] = useState([]);
   const [currentUser, setCurrentUser] = useState({})
   const staffMembers = [
@@ -68,6 +70,8 @@ const HomePage = () => {
     };
 
     cargarCursos();
+    setOpen(false)
+
   }, []);
   const handleSearch = () => {
     console.log("Realizar búsqueda...");
@@ -101,8 +105,8 @@ const HomePage = () => {
               onChange={(e) => e.key === "Enter" && handleSearch()}
             />
 
-
           </Box>
+          <ProfesorNotofication rol={currentUser.rol} />
 
           <Box display={'flex'} gap={'10px'} flexDirection={'column'} justifyContent={'center'} padding={'20px'} width={'670px'} height={'150px'} mt={'20px'} bgcolor={'#C5DD4A'} borderRadius={'0.75rem'}>
             <Typography fontWeight={700}>Bienvenido de vuelta {currentUser.usuario}!</Typography>
@@ -398,6 +402,13 @@ const HomePage = () => {
           </Grid>
         </Box>
       </Container>
+
+      <Backdrop
+        open={open}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
     </div >
   );
 };

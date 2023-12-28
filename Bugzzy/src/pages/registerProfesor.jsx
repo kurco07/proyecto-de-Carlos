@@ -35,7 +35,7 @@ const RegisterProfesores = () => {
         const newUser = await register({
           cedula: credentials.cedula,
           correo_electronico: credentials.email,
-          rol: 'Profesor',
+          rol: 'Profesor ',
           usuario: credentials.username,
           clave: credentials.password
         })
