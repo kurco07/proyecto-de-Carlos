@@ -8,6 +8,7 @@ import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import CommentIcon from '@mui/icons-material/Comment';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { capitloCursos, obtenerCursos } from '../services/cursos';
 import { login } from '../services/usuarios';
 import SlowMotionVideoIcon from '@mui/icons-material/SlowMotionVideo';
@@ -46,12 +47,14 @@ const DashboardProfesor = () => {
       <Navbar isLoggedIn={true} />
 
       <Box mt={'100px'} display={'flex'} flexDirection={'column'} width={'670px'}>
-
+        <Typography mb={'10px'} variant='h6' textAlign={'left'} color={'white'}>Estadisticas</Typography>
         <Box alignItems={'center'} justifyContent={'center'} gap={'10px'} display={'flex'} flexDirection={'row'}>
           <Box padding={'10px'} borderRadius={'0.75rem'} height={'150px'} width={'32%'} sx={{
             background: 'linear-gradient(45deg, #C5DD4A, #FFC04D)',
-            boxShadow: '0px 4px 10px #E3B673 '
-          }}>
+            boxShadow: '0px 4px 10px #E3B673',
+
+          }
+          } >
             <Box display={'flex'} height={'100%'} flexDirection={'column'} justifyContent={'center'}>
               <Box display={'flex'} alignItems={'center'} gap={'30px'}>
                 <Typography height={'70px'} color={'#1e2229'} fontSize={'55px'} fontWeight={700}>55</Typography>
@@ -67,7 +70,8 @@ const DashboardProfesor = () => {
           </Box>
           <Box padding={'10px'} borderRadius={'0.75rem'} height={'150px'} width={'32%'} sx={{
             background: 'linear-gradient(45deg, rgb(222, 90, 17), rgb(255, 194, 38))',
-            boxShadow: '0px 4px 10px #B46C37 '
+            boxShadow: '0px 4px 10px #B46C37',
+
           }}>
             <Box display={'flex'} height={'100%'} flexDirection={'column'} justifyContent={'center'}>
               <Box display={'flex'} alignItems={'center'} gap={'30px'}>
@@ -80,6 +84,8 @@ const DashboardProfesor = () => {
               <Divider />
               <Typography mt={'5px'} color={'#1e2229'} fontSize={'11px'} >Cursos publicados</Typography>
             </Box>
+
+
 
           </Box>
           <Box padding={'10px'} borderRadius={'0.75rem'} height={'150px'} width={'32%'} sx={{
@@ -103,6 +109,31 @@ const DashboardProfesor = () => {
 
 
         </Box>
+
+        <Box width={'100%'} mt={'30px'}>
+          <Typography variant='h6' textAlign={'left'} color={'white'}>Comienza a compartir</Typography>
+
+          <Box mt={'10px'} padding={'10px'} borderRadius={'0.75rem'} height={'60px'} width={'100%'} sx={{
+            background: 'linear-gradient(45deg, #a85ee6, #ffacf2)',
+            boxShadow: '0px 4px 10px #5c2d83 ',
+            transition: 'all .5s',
+
+            '&:hover': {
+              transform: 'scale(1.02)',
+              boxShadow: '0px 8px 14px #5c2d83',
+              cursor: 'pointer',
+              transition: 'all .5s'
+            }
+          }}>
+            <Box display={'flex'} height={'100%'} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+              <Typography fontWeight={700}>Agregar cursos</Typography>
+              <ArrowForwardIosIcon />
+            </Box>
+
+
+          </Box>
+
+        </Box>
         <Box width={'100%'} mt={'30px'}>
           <Typography variant='h6' textAlign={'left'} color={'white'}>Mis cursos</Typography>
 
@@ -118,12 +149,21 @@ const DashboardProfesor = () => {
                       descripcionPublicacion,
 
                     }) => (
-                      <Box height={'260px'} key={idPublicacion} bgcolor={'#1e2229'} borderRadius={'0.75rem'} display={'flex'} flexDirection={'row-reverse'}>
+                      <Box sx={{
+                        transition: 'all .5s'
+                        ,
+                        '&:hover': {
+                          transform: 'scale(1.009)',
+                          boxShadow: '0px 5px 10px #ffffff50',
+                          cursor: 'pointer',
+                          transition: 'all .5s'
+                        }
+                      }} height={'260px'} key={idPublicacion} border={'1px solid #2d323a'} borderRadius={'0.75rem'} display={'flex'} flexDirection={'row-reverse'}>
                         {/* Aquí puedes colocar la imagen y los detalles del curso */}
 
 
 
-                        <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} color={'white'} width={'100%'} padding={'20px'} gap={'10px'} zIndex={'999'} boxShadow={'10px 0px 15px #00000090'}>
+                        <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} color={'white'} width={'100%'} padding={'20px'} gap={'10px'} zIndex={'999'} >
                           <SlowMotionVideoIcon color="info" />
                           <Typography color={'#C5DD4A'} variant="subtitle1" >
                             {tituloPublicacion}
