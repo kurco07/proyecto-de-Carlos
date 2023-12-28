@@ -82,10 +82,10 @@ export function Login() {
             alignItems="center"
             flexDirection="column"
           >
-            <Box position={"absolute"} top={"15px"}>
+            <Box position={"absolute"} top={"55px"}>
               <img
                 className="img-logo"
-                src="./assets/amigos.jpeg"
+                src="./assets/logo.svg"
                 alt="bugzzy logo"
               />
             </Box>
@@ -153,6 +153,10 @@ export function Login() {
                 borderRadius: "15px",
                 textTransform: "none",
                 fontWeight: "bold",
+                '&:hover': {
+                  bgcolor: '#C5DD4A'
+
+                }
               }}
               variant="contained"
               fullWidth
@@ -169,6 +173,7 @@ export function Login() {
                   textTransform: "none",
                   fontWeight: "bold",
                   color: "#15665A",
+
                 }}
                 variant="text"
                 type="submit"
