@@ -13,6 +13,7 @@ import { capitloCursos, obtenerCursos } from '../services/cursos';
 import { login } from '../services/usuarios';
 import SlowMotionVideoIcon from '@mui/icons-material/SlowMotionVideo';
 import CrearCursoModal from '../components/CrearCursoModal';
+import AddIcon from '@mui/icons-material/Add';
 const DashboardProfesor = () => {
   const [cursos, setCursos] = useState([]);
   const [currentUser, setCurrentUser] = useState({})
@@ -216,6 +217,23 @@ const DashboardProfesor = () => {
 
                             <Button
                               sx={{
+                                bgcolor: 'white', color: 'black', width: '190px',
+                                '&:hover': {
+                                  bgcolor: '#ffffff',
+
+                                  scale: '1.02'
+                                }
+                              }}
+                              onClick={() => verCurso(idPublicacion)}
+                              size="small"
+                              variant="contained"
+                              endIcon={<AddIcon fontSize='small' />}
+                            >
+                              Agregar videos
+                            </Button>
+
+                            <Button
+                              sx={{
                                 bgcolor: 'white', color: 'black', width: '130px',
                                 '&:hover': {
                                   bgcolor: '#ffffff',
@@ -244,7 +262,7 @@ const DashboardProfesor = () => {
 
 
       </Box>
-      <CrearCursoModal isOpen={isOpen} closeModal={onClose} />
+      <CrearCursoModal isOpen={isOpen} currentUser={currentUser} closeModal={onClose} />
     </Box>
   )
 }
