@@ -4,7 +4,6 @@ import ComplexAccordion from "../components/ComplexAccordion";
 import CommentAccordion from "../components/CommentAccordion"; // Importa el componente CommentAccordion
 import Footer from "../components/Footer";
 import VideoPlayer from "../components/VideoPlayer";
-import { SearchNavbar } from "../components/SearchNavbar";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { capitloCursos, obtenerCursoPorId } from '../services/cursos';
@@ -13,7 +12,6 @@ import { Navbar } from '../components/Navbar';
 const ReproductorMP4 = ({ comments }) => {
     const { id, id_capitulo } = useParams()
     const [curso, setCurso] = useState({})
-    const [capitulo, setCapitulo] = useState()
 
     useEffect(() => {
 

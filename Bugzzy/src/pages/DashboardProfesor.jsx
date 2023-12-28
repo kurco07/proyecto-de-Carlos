@@ -1,5 +1,8 @@
 import { Box, Button, Divider, Typography } from '@mui/material'
 import { Navbar } from '../components/Navbar'
+import EditIcon from '@mui/icons-material/Edit';
+import ClearIcon from '@mui/icons-material/Clear';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -7,7 +10,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { capitloCursos, obtenerCursos } from '../services/cursos';
 import { login } from '../services/usuarios';
-
 import SlowMotionVideoIcon from '@mui/icons-material/SlowMotionVideo';
 const DashboardProfesor = () => {
   const [cursos, setCursos] = useState([]);
@@ -130,7 +132,7 @@ const DashboardProfesor = () => {
                             12 Clases | Certificado de finalizacion
                           </Typography>
                           <Typography fontSize={'13px'} color={'#c4c8ce'}>
-                            {descripcionPublicacion.slice(0, 100)}...
+                            {descripcionPublicacion.slice(0, 300)}...
                           </Typography>
 
                           <Box gap={'10px'} display={'flex'}>
@@ -146,6 +148,7 @@ const DashboardProfesor = () => {
                               onClick={() => verCurso(idPublicacion)}
                               size="small"
                               variant="contained"
+                              endIcon={<ArrowForwardIcon fontSize='small' />}
 
                             >
                               Ir al curso
@@ -162,7 +165,7 @@ const DashboardProfesor = () => {
                               onClick={() => verCurso(idPublicacion)}
                               size="small"
                               variant="contained"
-
+                              endIcon={<EditIcon fontSize='small' />}
                             >
                               Editar
                             </Button>
@@ -179,7 +182,7 @@ const DashboardProfesor = () => {
                               onClick={() => verCurso(idPublicacion)}
                               size="small"
                               variant="contained"
-
+                              endIcon={<ClearIcon fontSize='small' />}
                             >
                               Elimnar
                             </Button>

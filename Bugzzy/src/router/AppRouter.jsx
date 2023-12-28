@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Landing } from "../pages/Landing";
 import { Login } from "../pages/Login";
@@ -11,7 +10,6 @@ import ImportVideo from "../pages/ImportVideo"
 
 import { LoginContextProvider } from "../useContext/LoginContext";
 import { ProtectedLogin } from "./ProtectedRoutes";
-import { useParams } from "react-router-dom";
 import Profile from "../pages/Profile";
 import RegisterProfesores from "../pages/registerProfesor";
 import DashboardProfesor from "../pages/DashboardProfesor";
