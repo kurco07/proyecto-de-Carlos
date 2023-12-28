@@ -12,9 +12,11 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { capitloCursos, obtenerCursos } from '../services/cursos';
 import { login } from '../services/usuarios';
 import SlowMotionVideoIcon from '@mui/icons-material/SlowMotionVideo';
+import CrearCursoModal from '../components/CrearCursoModal';
 const DashboardProfesor = () => {
   const [cursos, setCursos] = useState([]);
   const [currentUser, setCurrentUser] = useState({})
+  const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
   useEffect(() => {
     const cargarCursos = async () => {
@@ -28,6 +30,8 @@ const DashboardProfesor = () => {
     cargarCursos();
 
   }, []);
+
+  const onClose = () => setIsOpen(false)
 
   const verCurso = (curso) => {
     navigate(`/reproductorMP4/${curso}/0`);
@@ -112,8 +116,8 @@ const DashboardProfesor = () => {
 
         <Box width={'100%'} mt={'30px'}>
           <Typography variant='h6' textAlign={'left'} color={'white'}>Comienza a compartir</Typography>
-
-          <Box mt={'10px'} padding={'10px'} borderRadius={'0.75rem'} height={'60px'} width={'100%'} sx={{
+          {/* Boton de agregar curso */}
+          <Box component={'button'} onClick={() => setIsOpen(true)} mt={'10px'} padding={'10px'} borderRadius={'0.75rem'} height={'60px'} width={'100%'} sx={{
             background: 'linear-gradient(45deg, #a85ee6, #ffacf2)',
             boxShadow: '0px 4px 10px #5c2d83 ',
             transition: 'all .5s',
@@ -239,9 +243,9 @@ const DashboardProfesor = () => {
         </Box>
 
 
-      </Box >
-
-    </Box >
+      </Box>
+      <CrearCursoModal isOpen={isOpen} closeModal={onClose} />
+    </Box>
   )
 }
 
