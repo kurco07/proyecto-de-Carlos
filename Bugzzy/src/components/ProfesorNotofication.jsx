@@ -14,7 +14,7 @@ const ProfesorNotofication = ({ rol }) => {
       }} >
         <Box display={'flex'} flexDirection={'column'} height={'100%'} padding={'20px'} justifyContent={'center'}>
           <Typography fontWeight={700}>Estas en una cuenta de profesor</Typography>
-          <Box onClick={(() => navigate('/profile'))} component={'button'} sx={{
+          <Box onClick={(() => navigate('/dashboard-profesor'))} component={'button'} sx={{
             '&:hover': {
 
               scale: '1 1.05'
