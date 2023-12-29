@@ -1,20 +1,19 @@
 import {
+  Alert,
   Box,
   Button,
-  Input,
   InputLabel,
-  MenuItem,
   Modal,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
 import { crearCurso } from "../services/cursos";
 import { useEffect, useState } from "react";
 import { login } from "../services/usuarios";
-import ImportVideo from "../pages/ImportVideo";
+import SnackBar from "./SnackBar";
 
 const CrearCursoModal = ({ isOpen, closeModal }) => {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const date = new Date();
   const [currentUser, setCurrentUser] = useState({});
   const initialState = {
@@ -44,13 +43,15 @@ const CrearCursoModal = ({ isOpen, closeModal }) => {
         tipoPublicacion: "Video",
       });
       console.log(response);
+      setNewCourse(initialState);
+      setOpenSnackbar(true);
     } catch (error) {
       console.log(error);
     }
   };
 
   const getData = (key, value) => setNewCourse({ ...newCourse, [key]: value });
-
+  const onCloseSnackbar = () => setOpenSnackbar(false);
   return (
     <Modal
       sx={{
@@ -146,9 +147,16 @@ const CrearCursoModal = ({ isOpen, closeModal }) => {
             <Button type="submit" variant="contained">
               Publicar
             </Button>
-            <Button variant="text">Cancelar</Button>
+            <Button onClick={closeModal} variant="text">
+              Cancelar
+            </Button>
           </Box>
         </Box>
+        <SnackBar open={openSnackbar} handleClose={onCloseSnackbar}>
+          <Alert severity="success" sx={{ width: "100%" }}>
+            Curso agregado correctamente
+          </Alert>
+        </SnackBar>
       </Box>
     </Modal>
   );
