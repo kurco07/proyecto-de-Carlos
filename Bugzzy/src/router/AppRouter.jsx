@@ -79,7 +79,7 @@ const AppRouter = () => {
             </ProtectedLogin>
           }
         />
-        <Route index path="/mycourses" element={<MyCourses />} />
+        <Route index path="/cursos-progreso" element={<MyCourses />} />
         <Route index path="/profile" element={<Profile />} />
         <Route
           index

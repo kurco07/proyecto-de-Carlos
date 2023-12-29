@@ -314,135 +314,141 @@ const DashboardProfesor = () => {
                       idPublicacion,
                       tituloPublicacion,
                       descripcionPublicacion,
-                    }) => (
-                      <Box
-                        sx={{
-                          transition: "all .5s",
-                          "&:hover": {
-                            transform: "scale(1.009)",
-                            boxShadow: "0px 5px 10px #ffffff50",
-                            cursor: "pointer",
-                            transition: "all .5s",
-                          },
-                        }}
-                        height={"260px"}
-                        key={idPublicacion}
-                        border={"1px solid #2d323a"}
-                        borderRadius={"0.75rem"}
-                        display={"flex"}
-                        flexDirection={"row-reverse"}
-                      >
-                        {/* Aquí puedes colocar la imagen y los detalles del curso */}
-
+                    }) => {
+                      const cantidadVideos = cursos.playlist.filter(
+                        (video) => video.idPublicacion === idPublicacion
+                      ).length;
+                      return (
                         <Box
+                          sx={{
+                            transition: "all .5s",
+                            "&:hover": {
+                              transform: "scale(1.009)",
+                              boxShadow: "0px 5px 10px #ffffff50",
+                              cursor: "pointer",
+                              transition: "all .5s",
+                            },
+                          }}
+                          height={"260px"}
+                          key={idPublicacion}
+                          border={"1px solid #2d323a"}
+                          borderRadius={"0.75rem"}
                           display={"flex"}
-                          flexDirection={"column"}
-                          justifyContent={"center"}
-                          color={"white"}
-                          width={"100%"}
-                          padding={"20px"}
-                          gap={"10px"}
-                          zIndex={"999"}
+                          flexDirection={"row-reverse"}
                         >
-                          <SlowMotionVideoIcon color="info" />
-                          <Typography color={"#C5DD4A"} variant="subtitle1">
-                            {tituloPublicacion}
-                          </Typography>
-                          <Typography fontSize={"10px"} color={"#ffffff70"}>
-                            12 Clases | Certificado de finalizacion
-                          </Typography>
-                          <Typography fontSize={"13px"} color={"#c4c8ce"}>
-                            {descripcionPublicacion.slice(0, 300)}...
-                          </Typography>
+                          {/* Aquí puedes colocar la imagen y los detalles del curso */}
 
-                          <Box gap={"10px"} display={"flex"}>
-                            <Button
-                              sx={{
-                                bgcolor: "white",
-                                color: "black",
-                                width: "130px",
-                                "&:hover": {
-                                  bgcolor: "#ffffff",
+                          <Box
+                            display={"flex"}
+                            flexDirection={"column"}
+                            justifyContent={"center"}
+                            color={"white"}
+                            width={"100%"}
+                            padding={"20px"}
+                            gap={"10px"}
+                            zIndex={"999"}
+                          >
+                            <SlowMotionVideoIcon color="info" />
+                            <Typography color={"#C5DD4A"} variant="subtitle1">
+                              {tituloPublicacion}
+                            </Typography>
+                            <Typography fontSize={"10px"} color={"#ffffff70"}>
+                              {cantidadVideos} Clases | Certificado de
+                              finalizacion
+                            </Typography>
+                            <Typography fontSize={"13px"} color={"#c4c8ce"}>
+                              {descripcionPublicacion.slice(0, 300)}...
+                            </Typography>
 
-                                  scale: "1.02",
-                                },
-                              }}
-                              onClick={() => verCurso(idPublicacion)}
-                              size="small"
-                              variant="contained"
-                              endIcon={<ArrowForwardIcon fontSize="small" />}
-                            >
-                              Ir al curso
-                            </Button>
-                            <Button
-                              sx={{
-                                bgcolor: "white",
-                                color: "black",
-                                width: "130px",
-                                "&:hover": {
-                                  bgcolor: "#ffffff",
+                            <Box gap={"10px"} display={"flex"}>
+                              <Button
+                                sx={{
+                                  bgcolor: "white",
+                                  color: "black",
+                                  width: "130px",
+                                  "&:hover": {
+                                    bgcolor: "#ffffff",
 
-                                  scale: "1.02",
-                                },
-                              }}
-                              onClick={() => {
-                                setCourseToEdit(idPublicacion);
-                                setModalEditar(true);
-                              }}
-                              size="small"
-                              variant="contained"
-                              endIcon={<EditIcon fontSize="small" />}
-                            >
-                              Editar
-                            </Button>
+                                    scale: "1.02",
+                                  },
+                                }}
+                                onClick={() => verCurso(idPublicacion)}
+                                size="small"
+                                variant="contained"
+                                endIcon={<ArrowForwardIcon fontSize="small" />}
+                              >
+                                Ir al curso
+                              </Button>
+                              <Button
+                                sx={{
+                                  bgcolor: "white",
+                                  color: "black",
+                                  width: "130px",
+                                  "&:hover": {
+                                    bgcolor: "#ffffff",
 
-                            <Button
-                              sx={{
-                                bgcolor: "white",
-                                color: "black",
-                                width: "190px",
-                                "&:hover": {
-                                  bgcolor: "#ffffff",
+                                    scale: "1.02",
+                                  },
+                                }}
+                                onClick={() => {
+                                  setCourseToEdit(idPublicacion);
+                                  setModalEditar(true);
+                                }}
+                                size="small"
+                                variant="contained"
+                                endIcon={<EditIcon fontSize="small" />}
+                              >
+                                Editar
+                              </Button>
 
-                                  scale: "1.02",
-                                },
-                              }}
-                              onClick={() => {
-                                setCourseToEdit(idPublicacion);
-                                setAgregarVideosModal(true);
-                              }}
-                              size="small"
-                              variant="contained"
-                              endIcon={<AddIcon fontSize="small" />}
-                            >
-                              Agregar videos
-                            </Button>
+                              <Button
+                                sx={{
+                                  bgcolor: "white",
+                                  color: "black",
+                                  width: "190px",
+                                  "&:hover": {
+                                    bgcolor: "#ffffff",
 
-                            <Button
-                              sx={{
-                                bgcolor: "white",
-                                color: "black",
-                                width: "130px",
-                                "&:hover": {
-                                  bgcolor: "#ffffff",
+                                    scale: "1.02",
+                                  },
+                                }}
+                                onClick={() => {
+                                  setCourseToEdit(idPublicacion);
+                                  setAgregarVideosModal(true);
+                                }}
+                                size="small"
+                                variant="contained"
+                                endIcon={<AddIcon fontSize="small" />}
+                              >
+                                Agregar videos
+                              </Button>
 
-                                  scale: "1.02",
-                                },
-                              }}
-                              onClick={() => {
-                                setConfirmDelete(true);
-                                setIdToDelete(idPublicacion);
-                              }}
-                              size="small"
-                              variant="contained"
-                              endIcon={<ClearIcon fontSize="small" />}
-                            >
-                              Elimnar
-                            </Button>
+                              <Button
+                                sx={{
+                                  bgcolor: "white",
+                                  color: "black",
+                                  width: "130px",
+                                  "&:hover": {
+                                    bgcolor: "#ffffff",
+
+                                    scale: "1.02",
+                                  },
+                                }}
+                                onClick={() => {
+                                  setConfirmDelete(true);
+                                  setIdToDelete(idPublicacion);
+                                }}
+                                size="small"
+                                variant="contained"
+                                endIcon={<ClearIcon fontSize="small" />}
+                              >
+                                Elimnar
+                              </Button>
+                            </Box>
                           </Box>
                         </Box>
-                      </Box>
-                    )
+                      );
+                    }
                   )}
                 </Box>
               </>

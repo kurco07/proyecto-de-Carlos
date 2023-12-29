@@ -75,7 +75,14 @@ const HomePage = () => {
       const response = await obtenerCursos();
       const playlist = await capitloCursos();
       const getUser = await login(localStorage.getItem("cedula"));
-      setCursos({ playlist, response });
+      const cantidadVideos = response.map((curso) => {
+        const videos = playlist.filter(
+          ({ idPublicacion }) => idPublicacion === curso.idPublicacion
+        );
+        return videos.length;
+      });
+
+      setCursos({ playlist, response, cantidadVideos });
       setCurrentUser(getUser);
     };
 
@@ -190,6 +197,7 @@ const HomePage = () => {
             color={"white"}
             display={"flex"}
             alignItems={"center"}
+            onClick={() => navigate("/cursos-progreso")}
           >
             <Typography borderBottom={"1px solid #ffffff60"} fontSize="12px">
               Cursos en progreso
@@ -221,68 +229,75 @@ const HomePage = () => {
                       tituloPublicacion,
                       descripcionPublicacion,
                       miniatura,
-                    }) => (
-                      <Box
-                        height={"260px"}
-                        key={idPublicacion}
-                        bgcolor={"#1e2229"}
-                        borderRadius={"0.75rem"}
-                        display={"flex"}
-                        flexDirection={"row-reverse"}
-                      >
-                        {/* Aquí puedes colocar la imagen y los detalles del curso */}
-
-                        <img
-                          style={{
-                            borderTopRightRadius: "0.75rem",
-                            borderBottomRightRadius: "0.75rem",
-                          }}
-                          width={300}
-                          src={miniatura}
-                        ></img>
+                    }) => {
+                      const cantidadVideos = cursos.playlist.filter(
+                        (video) => video.idPublicacion === idPublicacion
+                      ).length;
+                      return (
                         <Box
+                          height={"260px"}
+                          key={idPublicacion}
+                          bgcolor={"#1e2229"}
+                          borderRadius={"0.75rem"}
                           display={"flex"}
-                          flexDirection={"column"}
-                          justifyContent={"center"}
-                          color={"white"}
-                          width={"100%"}
-                          padding={"20px"}
-                          gap={"10px"}
-                          zIndex={"999"}
-                          boxShadow={"10px 0px 15px #00000090"}
+                          flexDirection={"row-reverse"}
                         >
-                          <SlowMotionVideoIcon color="info" />
-                          <Typography color={"#C5DD4A"} variant="subtitle1">
-                            {tituloPublicacion}
-                          </Typography>
-                          <Typography fontSize={"10px"} color={"#ffffff70"}>
-                            12 Clases | Certificado de finalizacion
-                          </Typography>
-                          <Typography fontSize={"13px"} color={"#c4c8ce"}>
-                            {descripcionPublicacion.slice(0, 100)}...
-                          </Typography>
+                          {/* Aquí puedes colocar la imagen y los detalles del curso */}
 
-                          <Button
-                            sx={{
-                              bgcolor: "white",
-                              color: "black",
-                              width: "130px",
-                              "&:hover": {
-                                bgcolor: "#ffffff",
-
-                                scale: "1.02",
-                              },
+                          <img
+                            style={{
+                              borderTopRightRadius: "0.75rem",
+                              borderBottomRightRadius: "0.75rem",
                             }}
-                            onClick={() => verCurso(idPublicacion)}
-                            size="small"
-                            variant="contained"
-                            endIcon={<ArrowForwardIcon />}
+                            width={300}
+                            src={miniatura}
+                          ></img>
+                          <Box
+                            display={"flex"}
+                            flexDirection={"column"}
+                            justifyContent={"center"}
+                            color={"white"}
+                            width={"100%"}
+                            padding={"20px"}
+                            gap={"10px"}
+                            zIndex={"999"}
+                            boxShadow={"10px 0px 15px #00000090"}
                           >
-                            Ir al curso
-                          </Button>
+                            <SlowMotionVideoIcon color="info" />
+                            <Typography color={"#C5DD4A"} variant="subtitle1">
+                              {tituloPublicacion}
+                            </Typography>
+
+                            <Typography fontSize={"10px"} color={"#ffffff70"}>
+                              {cantidadVideos}
+                              {" Clases "}| Certificado de finalizacion
+                            </Typography>
+                            <Typography fontSize={"13px"} color={"#c4c8ce"}>
+                              {descripcionPublicacion.slice(0, 100)}...
+                            </Typography>
+
+                            <Button
+                              sx={{
+                                bgcolor: "white",
+                                color: "black",
+                                width: "130px",
+                                "&:hover": {
+                                  bgcolor: "#ffffff",
+
+                                  scale: "1.02",
+                                },
+                              }}
+                              onClick={() => verCurso(idPublicacion)}
+                              size="small"
+                              variant="contained"
+                              endIcon={<ArrowForwardIcon />}
+                            >
+                              Ir al curso
+                            </Button>
+                          </Box>
                         </Box>
-                      </Box>
-                    )
+                      );
+                    }
                   )}
               </Box>
             </>
