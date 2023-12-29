@@ -124,23 +124,27 @@ const DashboardProfesor = () => {
               flexDirection={"column"}
               justifyContent={"center"}
             >
-              <Box display={"flex"} alignItems={"center"} gap={"30px"}>
-                <Typography
-                  height={"70px"}
-                  color={"#1e2229"}
-                  fontSize={"55px"}
-                  fontWeight={700}
-                >
-                  06
-                </Typography>
-                <FolderCopyIcon
-                  sx={{
-                    mt: "15px",
-                    fontSize: "55px",
-                  }}
-                  color="disabled"
-                />
-              </Box>
+              {cursos.filterResponse && (
+                <Box display={"flex"} alignItems={"center"} gap={"30px"}>
+                  <Typography
+                    height={"70px"}
+                    color={"#1e2229"}
+                    fontSize={"55px"}
+                    fontWeight={700}
+                  >
+                    {cursos.filterResponse.length < 10
+                      ? "0" + cursos.filterResponse.length
+                      : cursos.filterResponse.length}
+                  </Typography>
+                  <FolderCopyIcon
+                    sx={{
+                      mt: "15px",
+                      fontSize: "55px",
+                    }}
+                    color="disabled"
+                  />
+                </Box>
+              )}
               <Divider />
               <Typography mt={"5px"} color={"#1e2229"} fontSize={"11px"}>
                 Cursos publicados
