@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Alert, Box, Button, Divider, Modal, Typography } from "@mui/material";
 import { Navbar } from "../components/Navbar";
 import EditIcon from "@mui/icons-material/Edit";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -12,6 +12,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {
   capitloCursos,
   comentariosCursos,
+  eliminarCurso,
   obtenerCursos,
 } from "../services/cursos";
 import { login } from "../services/usuarios";
@@ -22,7 +23,9 @@ const DashboardProfesor = () => {
   const [cursos, setCursos] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+  const [idToDelete, setIdToDelete] = useState();
   const navigate = useNavigate();
+  const [confirmDelete, setConfirmDelete] = useState(false);
   useEffect(() => {
     const cargarCursos = async () => {
       const response = await obtenerCursos();
@@ -61,6 +64,17 @@ const DashboardProfesor = () => {
   console.log(cursos);
   const onClose = () => setIsOpen(false);
 
+  const onCloseDelete = () => setConfirmDelete(false);
+  const onSubmit = async () => {
+    try {
+      const response = await eliminarCurso(idToDelete);
+      console.log(response);
+
+      if (response) location.reload(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const verCurso = (curso) => {
     navigate(`/reproductorMP4/${curso}/0`);
   };
@@ -379,7 +393,9 @@ const DashboardProfesor = () => {
                                   scale: "1.02",
                                 },
                               }}
-                              onClick={() => verCurso(idPublicacion)}
+                              onClick={() => {
+                                verCurso(idPublicacion);
+                              }}
                               size="small"
                               variant="contained"
                               endIcon={<AddIcon fontSize="small" />}
@@ -398,7 +414,10 @@ const DashboardProfesor = () => {
                                   scale: "1.02",
                                 },
                               }}
-                              onClick={() => verCurso(idPublicacion)}
+                              onClick={() => {
+                                setConfirmDelete(true);
+                                setIdToDelete(idPublicacion);
+                              }}
                               size="small"
                               variant="contained"
                               endIcon={<ClearIcon fontSize="small" />}
@@ -421,6 +440,49 @@ const DashboardProfesor = () => {
         currentUser={currentUser}
         closeModal={onClose}
       />
+      <Modal
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        onClose={onCloseDelete}
+        open={confirmDelete}
+      >
+        <Box
+          padding={"20px"}
+          bgcolor={"white"}
+          borderRadius={"0.75rem"}
+          width={"370px"}
+          height={"220px"}
+          overflow={"auto"}
+          display={"flex"}
+          flexDirection={"column"}
+          gap={"10px"}
+          justifyContent={"center"}
+        >
+          <Typography fontWeight={700} color={"red"}>
+            Eliminar curso
+          </Typography>
+          <Alert severity="error">
+            Estas seguro que deseas eliminar este curso?
+          </Alert>
+          <Box display={"flex"} gap={"10px"}>
+            <Button
+              onClick={() => onSubmit()}
+              variant="contained"
+              color="error"
+            >
+              Eliminar curso
+            </Button>
+            <Button onClick={onCloseDelete} color="primary" variant="outlined">
+              Cancelar
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 };

@@ -74,6 +74,27 @@ export const obtenerCursoPorId = async (idCurso) => {
   }
 }
 
+export const eliminarCurso = async (idCurso) => {
+  try {
+    const response = await fetch(`${URL}/p/${idCurso}/`, {
+      method: 'DELETE',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+// No devuelve nada el servidor cuando se elimina ekisde  
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const capitloCursos = async () => {
   try {
     const response = await fetch(`${URL}/v_p/`, {

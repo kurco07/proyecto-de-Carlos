@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { login } from "../services/usuarios";
 import SnackBar from "./SnackBar";
 
-const CrearCursoModal = ({ isOpen, closeModal }) => {
+const CrearCursoModal = ({ isOpen, closeModal, cursos }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const date = new Date();
   const [currentUser, setCurrentUser] = useState({});
