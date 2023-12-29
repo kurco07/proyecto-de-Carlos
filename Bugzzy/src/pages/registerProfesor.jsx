@@ -12,53 +12,47 @@ import { Navigate, Link as Routerlink } from "react-router-dom";
 import { register } from "../services/usuarios";
 import { useNavigate } from "react-router-dom";
 const RegisterProfesores = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const initialCredentials = {
-    username: '',
-    email: '',
-    cedula: '',
-    password: '',
-    confirmPassword: ''
-  }
+    username: "",
+    email: "",
+    cedula: "",
+    password: "",
+    confirmPassword: "",
+  };
 
-  const [credentials, setCredentials] = useState(initialCredentials)
+  const [credentials, setCredentials] = useState(initialCredentials);
 
-  const getData = (key, value) => setCredentials({ ...credentials, [key]: value })
+  const getData = (key, value) =>
+    setCredentials({ ...credentials, [key]: value });
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (credentials.confirmPassword === credentials.password) {
       try {
         const newUser = await register({
           cedula: credentials.cedula,
           correo_electronico: credentials.email,
-          rol: 'Profesor ',
+          rol: "Profesor ",
           usuario: credentials.username,
-          clave: credentials.password
-        })
+          clave: credentials.password,
+        });
 
         if (newUser.correo_electronico) {
           setTimeout(() => {
-            navigate('/login')
-            console.log(newUser)
+            navigate("/login");
+            console.log(newUser);
           }, 3000);
-
         }
-
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
     } else {
-      console.log('Clave mala  uwu')
+      console.log("Clave mala  uwu");
     }
-
-
-
-  }
-
+  };
 
   return (
     <form onSubmit={onSubmit} className="bg-login">
@@ -91,7 +85,7 @@ const RegisterProfesores = () => {
             alignItems="center"
             flexDirection="column"
           >
-            <Box position={"absolute"} top={"55px"}>
+            <Box position={"absolute"} top={"0px"}>
               <img
                 className="img-logo"
                 src="./assets/logo.svg"
@@ -115,9 +109,7 @@ const RegisterProfesores = () => {
 
           <Grid>
             <Divider />
-
           </Grid>
-
 
           <Grid xs={12}>
             <TextField
@@ -129,26 +121,25 @@ const RegisterProfesores = () => {
               onChange={({ target }) => getData("username", target.value)}
               inputProps={{
                 style: {
-                  color: 'white'
-                }
-
+                  color: "white",
+                },
               }}
               sx={{
-                "& .MuiInputLabel-root": { color: 'white' },//styles the label
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
                 "& .MuiOutlinedInput-root": {
                   "& > fieldset": { borderColor: "white" },
                   "&.Mui-focused fieldset": {
-                    borderColor: 'white'
+                    borderColor: "white",
                   },
                 },
-                '& label.Mui-focused': {
-                  color: 'white',
+                "& label.Mui-focused": {
+                  color: "white",
                 },
                 "& .MuiOutlinedInput-root:hover": {
-                  "& > fieldset": { borderColor: "white" }
+                  "& > fieldset": { borderColor: "white" },
                 },
-                marginTop: '10px',
-                width: '100%',
+                marginTop: "10px",
+                width: "100%",
               }}
               size="small"
             />
@@ -158,9 +149,8 @@ const RegisterProfesores = () => {
             <TextField
               inputProps={{
                 style: {
-                  color: 'white'
-                }
-
+                  color: "white",
+                },
               }}
               name="cedula"
               fullWidth
@@ -170,20 +160,20 @@ const RegisterProfesores = () => {
               onChange={({ target }) => getData("cedula", target.value)}
               size="small"
               sx={{
-                "& .MuiInputLabel-root": { color: 'white' },//styles the label
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
                 "& .MuiOutlinedInput-root": {
                   "& > fieldset": { borderColor: "white" },
                   "&.Mui-focused fieldset": {
-                    borderColor: 'white'
+                    borderColor: "white",
                   },
                 },
-                '& label.Mui-focused': {
-                  color: 'white',
+                "& label.Mui-focused": {
+                  color: "white",
                 },
                 "& .MuiOutlinedInput-root:hover": {
-                  "& > fieldset": { borderColor: "white" }
+                  "& > fieldset": { borderColor: "white" },
                 },
-                marginTop: '10px',
+                marginTop: "10px",
               }}
             />
           </Grid>
@@ -192,25 +182,24 @@ const RegisterProfesores = () => {
             <TextField
               inputProps={{
                 style: {
-                  color: 'white'
-                }
-
+                  color: "white",
+                },
               }}
               sx={{
-                "& .MuiInputLabel-root": { color: 'white' },//styles the label
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
                 "& .MuiOutlinedInput-root": {
                   "& > fieldset": { borderColor: "white" },
                   "&.Mui-focused fieldset": {
-                    borderColor: 'white'
+                    borderColor: "white",
                   },
                 },
-                '& label.Mui-focused': {
-                  color: 'white',
+                "& label.Mui-focused": {
+                  color: "white",
                 },
                 "& .MuiOutlinedInput-root:hover": {
-                  "& > fieldset": { borderColor: "white" }
+                  "& > fieldset": { borderColor: "white" },
                 },
-                marginTop: '10px',
+                marginTop: "10px",
               }}
               name="email"
               required
@@ -226,25 +215,24 @@ const RegisterProfesores = () => {
             <TextField
               inputProps={{
                 style: {
-                  color: 'white'
-                }
-
+                  color: "white",
+                },
               }}
               sx={{
-                "& .MuiInputLabel-root": { color: 'white' },//styles the label
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
                 "& .MuiOutlinedInput-root": {
                   "& > fieldset": { borderColor: "white" },
                   "&.Mui-focused fieldset": {
-                    borderColor: 'white'
+                    borderColor: "white",
                   },
                 },
-                '& label.Mui-focused': {
-                  color: 'white',
+                "& label.Mui-focused": {
+                  color: "white",
                 },
                 "& .MuiOutlinedInput-root:hover": {
-                  "& > fieldset": { borderColor: "white" }
+                  "& > fieldset": { borderColor: "white" },
                 },
-                marginTop: '10px',
+                marginTop: "10px",
               }}
               name="password"
               fullWidth
@@ -260,33 +248,33 @@ const RegisterProfesores = () => {
             <TextField
               inputProps={{
                 style: {
-                  color: 'white'
-                }
-
+                  color: "white",
+                },
               }}
               sx={{
-                "& .MuiInputLabel-root": { color: 'white' },//styles the label
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
                 "& .MuiOutlinedInput-root": {
                   "& > fieldset": { borderColor: "white" },
                   "&.Mui-focused fieldset": {
-                    borderColor: 'white'
+                    borderColor: "white",
                   },
                 },
-                '& label.Mui-focused': {
-                  color: 'white',
+                "& label.Mui-focused": {
+                  color: "white",
                 },
                 "& .MuiOutlinedInput-root:hover": {
-                  "& > fieldset": { borderColor: "white" }
+                  "& > fieldset": { borderColor: "white" },
                 },
-                marginTop: '10px',
+                marginTop: "10px",
               }}
               name="password"
-              onChange={({ target }) => getData("confirmPassword", target.value)}
+              onChange={({ target }) =>
+                getData("confirmPassword", target.value)
+              }
               fullWidth
               required
               label="Confirmar contraseña"
               type="password"
-
               size="small"
             />
           </Grid>
@@ -300,14 +288,13 @@ const RegisterProfesores = () => {
                 textTransform: "none",
                 fontWeight: "bold",
 
-                '&:hover': {
-                  bgcolor: '#C5DD4A',
-                  scale: '1.02',
-                }
+                "&:hover": {
+                  bgcolor: "#C5DD4A",
+                  scale: "1.02",
+                },
               }}
               variant="contained"
               type="submit"
-
               fullWidth
             >
               Registrarse

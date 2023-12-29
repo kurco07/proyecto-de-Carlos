@@ -14,43 +14,40 @@ import { useNavigate } from "react-router-dom";
 import { ContextoLogin } from "../useContext/LoginContext";
 import { useContext, useEffect } from "react";
 export function Login() {
-  const navigate = useNavigate()
-  const { Loged, setLoged } = useContext(ContextoLogin)
+  const navigate = useNavigate();
+  const { Loged, setLoged } = useContext(ContextoLogin);
   const initialCredentials = {
-    cedula: '',
-    password: ''
-  }
+    cedula: "",
+    password: "",
+  };
 
+  const [credentials, setCredentials] = useState(initialCredentials);
 
-
-  const [credentials, setCredentials] = useState(initialCredentials)
-
-  const getData = (key, value) => setCredentials({ ...credentials, [key]: value })
-
+  const getData = (key, value) =>
+    setCredentials({ ...credentials, [key]: value });
 
   useEffect(() => {
-    if (Loged) navigate('/homepage')
-
-  }, [Loged, navigate])
-
+    if (Loged) navigate("/homepage");
+  }, [Loged, navigate]);
 
   const onSubmit = async (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
 
     try {
-      const isUserExist = await login(credentials.cedula)
+      const isUserExist = await login(credentials.cedula);
 
-      if (isUserExist.cedula === credentials.cedula && isUserExist.clave === credentials.password) {
-        setLoged(true)
-        localStorage.setItem('Loged', true)
-        localStorage.setItem('cedula', credentials.cedula)
+      if (
+        isUserExist.cedula === credentials.cedula &&
+        isUserExist.clave === credentials.password
+      ) {
+        setLoged(true);
+        localStorage.setItem("Loged", true);
+        localStorage.setItem("cedula", credentials.cedula);
       }
-
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
   return (
     <form onSubmit={onSubmit} className="bg-login">
       <Grid
@@ -82,7 +79,7 @@ export function Login() {
             alignItems="center"
             flexDirection="column"
           >
-            <Box position={"absolute"} top={"55px"}>
+            <Box position={"absolute"} top={"0px"}>
               <img
                 className="img-logo"
                 src="./assets/logo.svg"
@@ -145,7 +142,6 @@ export function Login() {
           </Grid>
 
           <Grid xs={12} display="flex" justifyContent="center">
-
             <Button
               sx={{
                 bgcolor: "#C5DD4A",
@@ -153,10 +149,9 @@ export function Login() {
                 borderRadius: "15px",
                 textTransform: "none",
                 fontWeight: "bold",
-                '&:hover': {
-                  bgcolor: '#C5DD4A'
-
-                }
+                "&:hover": {
+                  bgcolor: "#C5DD4A",
+                },
               }}
               variant="contained"
               fullWidth
@@ -173,7 +168,6 @@ export function Login() {
                   textTransform: "none",
                   fontWeight: "bold",
                   color: "#15665A",
-
                 }}
                 variant="text"
                 type="submit"
@@ -225,5 +219,4 @@ export function Login() {
       </Grid>
     </form>
   );
-
 }

@@ -12,53 +12,47 @@ import { Navigate, Link as Routerlink } from "react-router-dom";
 import { register } from "../services/usuarios";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const initialCredentials = {
-    username: '',
-    email: '',
-    cedula: '',
-    password: '',
-    confirmPassword: ''
-  }
+    username: "",
+    email: "",
+    cedula: "",
+    password: "",
+    confirmPassword: "",
+  };
 
-  const [credentials, setCredentials] = useState(initialCredentials)
+  const [credentials, setCredentials] = useState(initialCredentials);
 
-  const getData = (key, value) => setCredentials({ ...credentials, [key]: value })
+  const getData = (key, value) =>
+    setCredentials({ ...credentials, [key]: value });
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (credentials.confirmPassword === credentials.password) {
       try {
         const newUser = await register({
           cedula: credentials.cedula,
           correo_electronico: credentials.email,
-          rol: 'Estudiante',
+          rol: "Estudiante",
           usuario: credentials.username,
-          clave: credentials.password
-        })
+          clave: credentials.password,
+        });
 
         if (newUser.correo_electronico) {
           setTimeout(() => {
-            navigate('/login')
-            console.log(newUser)
+            navigate("/login");
+            console.log(newUser);
           }, 3000);
-
         }
-
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
     } else {
-      console.log('Clave mala  uwu')
+      console.log("Clave mala  uwu");
     }
-
-
-
-  }
-
+  };
 
   return (
     <form onSubmit={onSubmit} className="bg-login">
@@ -91,7 +85,7 @@ const Register = () => {
             alignItems="center"
             flexDirection="column"
           >
-            <Box position={"absolute"} top={"55px"}>
+            <Box position={"absolute"} top={"0px"}>
               <img
                 className="img-logo"
                 src="./assets/logo.svg"
@@ -115,9 +109,7 @@ const Register = () => {
 
           <Grid>
             <Divider />
-
           </Grid>
-
 
           <Grid xs={12}>
             <TextField
@@ -128,7 +120,6 @@ const Register = () => {
               required
               type="text"
               onChange={({ target }) => getData("username", target.value)}
-
               size="small"
             />
           </Grid>
@@ -176,12 +167,13 @@ const Register = () => {
             <TextField
               variant="filled"
               name="password"
-              onChange={({ target }) => getData("confirmPassword", target.value)}
+              onChange={({ target }) =>
+                getData("confirmPassword", target.value)
+              }
               fullWidth
               required
               label="Confirmar contraseña"
               type="password"
-
               size="small"
             />
           </Grid>
@@ -194,14 +186,12 @@ const Register = () => {
                 borderRadius: "15px",
                 textTransform: "none",
                 fontWeight: "bold",
-                '&:hover': {
-                  bgcolor: '#C5DD4A'
-
-                }
+                "&:hover": {
+                  bgcolor: "#C5DD4A",
+                },
               }}
               variant="contained"
               type="submit"
-
               fullWidth
             >
               Registrarse
