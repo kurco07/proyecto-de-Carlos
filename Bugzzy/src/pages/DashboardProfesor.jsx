@@ -9,7 +9,11 @@ import CommentIcon from "@mui/icons-material/Comment";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { capitloCursos, obtenerCursos } from "../services/cursos";
+import {
+  capitloCursos,
+  comentariosCursos,
+  obtenerCursos,
+} from "../services/cursos";
 import { login } from "../services/usuarios";
 import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import CrearCursoModal from "../components/CrearCursoModal";
@@ -23,17 +27,32 @@ const DashboardProfesor = () => {
     const cargarCursos = async () => {
       const response = await obtenerCursos();
       const playlist = await capitloCursos();
+      const comentarios = await comentariosCursos();
       const getUser = await login(localStorage.getItem("cedula"));
-
+      // Obtener los cursos del profesor actual
       const filterResponse = response.filter(
         ({ cedulaCreador }) => cedulaCreador === localStorage.getItem("cedula")
       );
-
+      // Obtener los videos del profesor actual
       const filterPlayList = playlist.filter(({ idPublicacion }) =>
         filterResponse.some((curso) => curso.idPublicacion === idPublicacion)
       );
+      // Obtener los comentarios del profesor actual
+      const filterComentarios = comentarios.filter(
+        ({ idCapituloPublicacion }) =>
+          playlist.some(
+            (video) => video.idVideoPublicacion === idCapituloPublicacion
+          )
+      );
 
-      setCursos({ playlist, response, filterResponse, filterPlayList });
+      setCursos({
+        playlist,
+        response,
+        filterResponse,
+        filterPlayList,
+        comentarios,
+        filterComentarios,
+      });
       setCurrentUser(getUser);
     };
 
@@ -177,23 +196,27 @@ const DashboardProfesor = () => {
               flexDirection={"column"}
               justifyContent={"center"}
             >
-              <Box display={"flex"} alignItems={"center"} gap={"30px"}>
-                <Typography
-                  height={"70px"}
-                  color={"#1e2229"}
-                  fontSize={"55px"}
-                  fontWeight={700}
-                >
-                  352
-                </Typography>
-                <CommentIcon
-                  sx={{
-                    mt: "15px",
-                    fontSize: "55px",
-                  }}
-                  color="disabled"
-                />
-              </Box>
+              {cursos.filterComentarios && (
+                <Box display={"flex"} alignItems={"center"} gap={"30px"}>
+                  <Typography
+                    height={"70px"}
+                    color={"#1e2229"}
+                    fontSize={"55px"}
+                    fontWeight={700}
+                  >
+                    {cursos.filterComentarios.length < 10
+                      ? "0" + cursos.filterComentarios.length
+                      : cursos.filterComentarios.length}
+                  </Typography>
+                  <CommentIcon
+                    sx={{
+                      mt: "15px",
+                      fontSize: "55px",
+                    }}
+                    color="disabled"
+                  />
+                </Box>
+              )}
               <Divider />
               <Typography mt={"5px"} color={"#1e2229"} fontSize={"11px"}>
                 Comentarios recibidos
