@@ -29,7 +29,6 @@ export function Navbar({ isLoggedIn }) {
     navigate("/login");
   };
 
-
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
   };
@@ -38,8 +37,6 @@ export function Navbar({ isLoggedIn }) {
     setIsDrawerOpen(false);
   };
 
-
-
   return (
     <div>
       <AppBar
@@ -47,32 +44,43 @@ export function Navbar({ isLoggedIn }) {
         sx={{
           top: "0",
           width: "100%",
-          zIndex: "9999999",
+          zIndex: "99",
           backgroundColor: "#13161c",
           color: "#C5DD4A",
-          borderBottom: '1px solid #2d323a'
+          borderBottom: "1px solid #2d323a",
         }}
       >
         <Toolbar
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between'
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <Box display={'flex'} gap={'5px'}>
-            <IconButton sx={{
-              display: {
-                xs: 'block',
-                sm: 'block',
-                md: 'none',
-
-              }
-            }} color="inherit" onClick={handleDrawerOpen}>
+          <Box display={"flex"} gap={"5px"}>
+            <IconButton
+              sx={{
+                display: {
+                  xs: "block",
+                  sm: "block",
+                  md: "none",
+                },
+              }}
+              color="inherit"
+              onClick={handleDrawerOpen}
+            >
               <MenuIcon />
             </IconButton>
-            <Button onClick={() => navigate('/homepage')} sx={{ fontWeight: "bold", maxWidth: '100px' }} variant="h6">
-              <img style={{ marginRight: '10px' }} width={40} height={40} src="assets/logo.svg"></img>
-
+            <Button
+              onClick={() => navigate("/homepage")}
+              sx={{ fontWeight: "bold", maxWidth: "100px" }}
+              variant="h6"
+            >
+              <img
+                style={{ marginRight: "10px" }}
+                width={40}
+                height={40}
+                src="assets/logo.svg"
+              ></img>
               Bugzzy
             </Button>
           </Box>
@@ -80,8 +88,9 @@ export function Navbar({ isLoggedIn }) {
           <Box>
             {isLoggedIn ? (
               <>
-
-                <Button onClick={() => navigate('/profile')} color="inherit">Mi Perfil</Button>
+                <Button onClick={() => navigate("/profile")} color="inherit">
+                  Mi Perfil
+                </Button>
                 <Button onClick={() => logOut()} color="inherit">
                   Cerrar Sesión
                 </Button>
@@ -146,7 +155,7 @@ export function Navbar({ isLoggedIn }) {
           )}
         </List>
       </Drawer>
-    </div >
+    </div>
   );
 }
 
