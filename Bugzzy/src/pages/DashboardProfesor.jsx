@@ -19,6 +19,7 @@ import { login } from "../services/usuarios";
 import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import CrearCursoModal from "../components/CrearCursoModal";
 import AddIcon from "@mui/icons-material/Add";
+import EditarCursoModal from "../components/EditarCursoModal";
 const DashboardProfesor = () => {
   const [cursos, setCursos] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
@@ -26,11 +27,14 @@ const DashboardProfesor = () => {
   const [idToDelete, setIdToDelete] = useState();
   const navigate = useNavigate();
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [modalEditar, setModalEditar] = useState(false);
+  const [courseToEdit, setCourseToEdit] = useState({});
   useEffect(() => {
     const cargarCursos = async () => {
       const response = await obtenerCursos();
       const playlist = await capitloCursos();
       const comentarios = await comentariosCursos();
+
       const getUser = await login(localStorage.getItem("cedula"));
       // Obtener los cursos del profesor actual
       const filterResponse = response.filter(
@@ -63,7 +67,7 @@ const DashboardProfesor = () => {
   }, []);
   console.log(cursos);
   const onClose = () => setIsOpen(false);
-
+  const closeModalEditar = () => setModalEditar(false);
   const onCloseDelete = () => setConfirmDelete(false);
   const onSubmit = async () => {
     try {
@@ -374,7 +378,10 @@ const DashboardProfesor = () => {
                                   scale: "1.02",
                                 },
                               }}
-                              onClick={() => verCurso(idPublicacion)}
+                              onClick={() => {
+                                setCourseToEdit(idPublicacion);
+                                setModalEditar(true);
+                              }}
                               size="small"
                               variant="contained"
                               endIcon={<EditIcon fontSize="small" />}
@@ -439,6 +446,11 @@ const DashboardProfesor = () => {
         isOpen={isOpen}
         currentUser={currentUser}
         closeModal={onClose}
+      />
+      <EditarCursoModal
+        id={courseToEdit}
+        closeModal={closeModalEditar}
+        isOpen={modalEditar}
       />
       <Modal
         sx={{

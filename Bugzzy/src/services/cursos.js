@@ -74,6 +74,64 @@ export const obtenerCursoPorId = async (idCurso) => {
   }
 }
 
+// export const editarCurso = async (data = {}) => {
+//   const formData = new FormData();
+
+//   // Agrega los campos del formulario a la instancia de FormData
+//   Object.keys(data).forEach(key => {
+//     formData.append(key, data[key]);
+//   });
+//   try {
+//     const response = await fetch(`${URL}/p/${data.idPublicacion}/`, {
+//       method: 'PUT',
+//       mode: 'cors',
+//       cache: 'no-cache',
+//       credentials: 'same-origin',
+//       headers: {
+//         'Content-Type': 'application/json'
+
+//       },
+//       redirect: 'follow',
+//       referrerPolicy: 'no-referrer',
+//       body:formData
+//     })
+
+//     return response.json()
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
+export const editarCurso = async (data = {}) => {
+  try {
+    const formData = new FormData();
+
+    // Agrega los campos del formulario a la instancia de FormData
+    Object.keys(data).forEach(key => {
+      formData.append(key, data[key]);
+    });
+
+    const response = await fetch(`${URL}/p/${data.idPublicacion}/`, {
+      method: 'PUT',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        // No establezcas Content-Type aquí, se configurará automáticamente para FormData
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: formData, // Usa la instancia de FormData como cuerpo de la solicitud
+    });
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
 export const eliminarCurso = async (idCurso) => {
   try {
     const response = await fetch(`${URL}/p/${idCurso}/`, {
