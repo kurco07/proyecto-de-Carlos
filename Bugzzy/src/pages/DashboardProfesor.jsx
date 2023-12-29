@@ -20,6 +20,7 @@ import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import CrearCursoModal from "../components/CrearCursoModal";
 import AddIcon from "@mui/icons-material/Add";
 import EditarCursoModal from "../components/EditarCursoModal";
+import AgregarVideosModal from "../components/AgregarVideosModal";
 const DashboardProfesor = () => {
   const [cursos, setCursos] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
@@ -29,6 +30,7 @@ const DashboardProfesor = () => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
   const [courseToEdit, setCourseToEdit] = useState({});
+  const [agregarVideosModal, setAgregarVideosModal] = useState(false);
   useEffect(() => {
     const cargarCursos = async () => {
       const response = await obtenerCursos();
@@ -36,6 +38,7 @@ const DashboardProfesor = () => {
       const comentarios = await comentariosCursos();
 
       const getUser = await login(localStorage.getItem("cedula"));
+
       // Obtener los cursos del profesor actual
       const filterResponse = response.filter(
         ({ cedulaCreador }) => cedulaCreador === localStorage.getItem("cedula")
@@ -66,9 +69,13 @@ const DashboardProfesor = () => {
     cargarCursos();
   }, []);
   console.log(cursos);
+
+  if (currentUser.rol === "Estudiante") navigate("/login");
+  console.log(currentUser);
   const onClose = () => setIsOpen(false);
   const closeModalEditar = () => setModalEditar(false);
   const onCloseDelete = () => setConfirmDelete(false);
+  const onCloseAgregarVideos = () => setAgregarVideosModal(false);
   const onSubmit = async () => {
     try {
       const response = await eliminarCurso(idToDelete);
@@ -401,7 +408,8 @@ const DashboardProfesor = () => {
                                 },
                               }}
                               onClick={() => {
-                                verCurso(idPublicacion);
+                                setCourseToEdit(idPublicacion);
+                                setAgregarVideosModal(true);
                               }}
                               size="small"
                               variant="contained"
@@ -451,6 +459,12 @@ const DashboardProfesor = () => {
         id={courseToEdit}
         closeModal={closeModalEditar}
         isOpen={modalEditar}
+      />
+
+      <AgregarVideosModal
+        closeModal={onCloseAgregarVideos}
+        isOpen={agregarVideosModal}
+        id={courseToEdit}
       />
       <Modal
         sx={{

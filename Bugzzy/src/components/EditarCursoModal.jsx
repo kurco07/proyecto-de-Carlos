@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { login } from "../services/usuarios";
 import SnackBar from "./SnackBar";
 import { editarCurso } from "../services/cursos";
+import EditIcon from "@mui/icons-material/Edit";
 
 const EditarCursoModal = ({ isOpen, closeModal, id }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -80,7 +81,7 @@ const EditarCursoModal = ({ isOpen, closeModal, id }) => {
         overflow={"auto"}
       >
         <Typography fontSize={"20px"} mb={"10px"}>
-          Herramienta de edicion de cursos
+          Herramienta de edicion de cursos <EditIcon />
         </Typography>
         <InputLabel
           sx={{

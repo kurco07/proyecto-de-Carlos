@@ -7,21 +7,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { crearCurso } from "../services/cursos";
+import UploadIcon from "@mui/icons-material/Upload";
+import { agregarVideos } from "../services/cursos";
 import { useEffect, useState } from "react";
 import { login } from "../services/usuarios";
 import SnackBar from "./SnackBar";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-const CrearCursoModal = ({ isOpen, closeModal, cursos }) => {
+const AgregarVideosModal = ({ isOpen, closeModal, id }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const date = new Date();
   const [currentUser, setCurrentUser] = useState({});
+  const [snackBarError, setSnackBarError] = useState(false);
   const initialState = {
     nombreCurso: "",
     descripcionCurso: "",
     miniaturaCurso: "",
-    fecha: date.toISOString(),
+    videoCurso: "",
   };
 
   const [newCourse, setNewCourse] = useState(initialState);
@@ -35,15 +35,13 @@ const CrearCursoModal = ({ isOpen, closeModal, cursos }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await crearCurso({
-        fechaPublicacion: newCourse.fecha,
-        tituloPublicacion: newCourse.nombreCurso,
-        descripcionPublicacion: newCourse.descripcionCurso,
+      const response = await agregarVideos({
+        tituloCapitulo: newCourse.nombreCurso,
+        descripcionCapitulo: newCourse.descripcionCurso,
         miniatura: newCourse.miniaturaCurso,
-        cedulaCreador: currentUser.cedula,
-        tipoPublicacion: "Video",
+        idPublicacion: id,
+        video_url: newCourse.videoCurso,
       });
-      console.log(response);
       setNewCourse(initialState);
       setOpenSnackbar(true);
     } catch (error) {
@@ -53,6 +51,8 @@ const CrearCursoModal = ({ isOpen, closeModal, cursos }) => {
 
   const getData = (key, value) => setNewCourse({ ...newCourse, [key]: value });
   const onCloseSnackbar = () => setOpenSnackbar(false);
+  const onCloseError = () => setSnackBarError(false);
+
   return (
     <Modal
       sx={{
@@ -70,18 +70,18 @@ const CrearCursoModal = ({ isOpen, closeModal, cursos }) => {
         bgcolor={"white"}
         borderRadius={"0.75rem"}
         width={"670px"}
-        height={"550px"}
+        height={"480px"}
         overflow={"auto"}
       >
         <Typography fontSize={"20px"} mb={"10px"}>
-          Herramienta de creacion de cursos <AddCircleIcon />
+          Herramienta para agregar videos al curso <UploadIcon />
         </Typography>
         <InputLabel
           sx={{
             mb: "10px",
           }}
         >
-          Ingrese la informacion del curso
+          Ingrese la informacion del video
         </InputLabel>
 
         <Box
@@ -95,18 +95,18 @@ const CrearCursoModal = ({ isOpen, closeModal, cursos }) => {
           <TextField
             onChange={({ target }) => getData("nombreCurso", target.value)}
             required
-            helperText="El nombre esta compuesto de letras de A-Za-z"
+            helperText="El titulo del video esta compuesto de letras de A-Za-z"
             size="small"
-            label="Nombre de curso"
+            label="Titulo del video"
             value={newCourse.nombreCurso}
             variant="filled"
             fullWidth
-            placeholder="Ingrese nombre de curso"
+            placeholder="Ingrese el titulo del video"
           />
           <TextField
             required
             onChange={({ target }) => getData("descripcionCurso", target.value)}
-            helperText="La descripcion esta compuesto de letras de A-Za-z, simbolos y emojis"
+            helperText="La descripcion del titulo del video esta compuesto de letras de A-Za-z, simbolos y emojis"
             size="small"
             multiline
             value={newCourse.descripcionCurso}
@@ -114,37 +114,28 @@ const CrearCursoModal = ({ isOpen, closeModal, cursos }) => {
             label="Descripcion de curso"
             variant="filled"
             fullWidth
-            placeholder="Ingrese la descripcion del curso"
+            placeholder="Ingrese la descripcion del titulo del video"
           />
 
-          <InputLabel label="input-file">Nombre del profesor</InputLabel>
+          <InputLabel label="input-file">Miniatura del video</InputLabel>
 
-          <TextField
-            required
-            helperText="El nombre del autor es el usuario que suba el curso"
-            size="small"
-            disabled
-            value={currentUser.usuario}
-            variant="standard"
-            fullWidth
-            placeholder="Ingrese nombre de curso"
-          />
-
-          <InputLabel label="input-file">Miniatura del curso</InputLabel>
-          {/* <Input
-            onChange={({ target }) =>
-              getData("miniaturaCurso", target.files[0])
-            }
-            required
-            type="file"
-          /> */}
           <input
+            required
             type="file"
             onChange={({ target }) =>
               getData("miniaturaCurso", target.files[0])
             }
           />
-          <Box mt={"30px"} display={"flex"} gap={"10px"}>
+
+          <InputLabel label="input-file">Video del curso</InputLabel>
+
+          <input
+            required
+            type="file"
+            onChange={({ target }) => getData("videoCurso", target.files[0])}
+          />
+
+          <Box mt={"10px"} display={"flex"} gap={"10px"}>
             <Button type="submit" variant="contained">
               Publicar
             </Button>
@@ -155,7 +146,13 @@ const CrearCursoModal = ({ isOpen, closeModal, cursos }) => {
         </Box>
         <SnackBar open={openSnackbar} handleClose={onCloseSnackbar}>
           <Alert severity="success" sx={{ width: "100%" }}>
-            Curso agregado correctamente
+            Video agregado correctamente
+          </Alert>
+        </SnackBar>
+
+        <SnackBar open={snackBarError} handleClose={onCloseError}>
+          <Alert severity="error" sx={{ width: "100%" }}>
+            Por favor agregar una miniatura en formato imagen
           </Alert>
         </SnackBar>
       </Box>
@@ -163,4 +160,4 @@ const CrearCursoModal = ({ isOpen, closeModal, cursos }) => {
   );
 };
 
-export default CrearCursoModal;
+export default AgregarVideosModal;

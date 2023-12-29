@@ -1,7 +1,7 @@
 
 const URL = 'http://127.0.0.1:8000/api/v1/publicacion'
 
-
+// API CALL PUBLICACIONES
 export const obtenerCursos = async () => {
   try {
     const response = await fetch(`${URL}/p/`, {
@@ -152,7 +152,7 @@ export const eliminarCurso = async (idCurso) => {
     console.log(error)
   }
 }
-
+// API CALL VIDEOS
 export const capitloCursos = async () => {
   try {
     const response = await fetch(`${URL}/v_p/`, {
@@ -174,6 +174,35 @@ export const capitloCursos = async () => {
   }
 }
 
+export const agregarVideos = async (data = {}) => {
+  try {
+    const formData = new FormData();
+
+    // Agrega los campos del formulario a la instancia de FormData
+    Object.keys(data).forEach(key => {
+      formData.append(key, data[key]);
+    });
+
+    const response = await fetch(`${URL}/v_p/`, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        // No establezcas Content-Type aquí, se configurará automáticamente para FormData
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: formData, // Usa la instancia de FormData como cuerpo de la solicitud
+    });
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// API CALL COMENTARIOS
 export const comentariosCursos = async () => {
   try {
     const response = await fetch(`${URL}/c_p/`, {
