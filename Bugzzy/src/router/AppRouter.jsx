@@ -6,7 +6,7 @@ import ReproductorMP4 from "../pages/ReproductorMP4";
 import Reset from "../pages/Reset";
 import HomePage from "../pages/HomePage";
 import MyCourses from "../pages/MyCourses";
-import ImportVideo from "../pages/ImportVideo"
+import ImportVideo from "../pages/ImportVideo";
 
 import { LoginContextProvider } from "../useContext/LoginContext";
 import { ProtectedLogin } from "./ProtectedRoutes";
@@ -58,13 +58,18 @@ const AppRouter = () => {
         <Route index path="/" element={<Landing />} />
         <Route index path="/login" element={<Login />} />
         <Route index path="/register" element={<Register />} />
-        <Route index path="/register-profesores" element={<RegisterProfesores />} />
-        <Route index path="/dashboard-profesor" element={<DashboardProfesor />} />
-
-
+        <Route
+          index
+          path="/register-profesores"
+          element={<RegisterProfesores />}
+        />
+        <Route
+          index
+          path="/dashboard-profesor"
+          element={<DashboardProfesor />}
+        />
         <Route index path="/reset" element={<Reset />} />
         <Route index path="/cargarVideo" element={<ImportVideo />} />
-
         <Route
           index
           path="/homepage"
@@ -76,22 +81,13 @@ const AppRouter = () => {
         />
         <Route index path="/mycourses" element={<MyCourses />} />
         <Route index path="/profile" element={<Profile />} />
-
         <Route
           index
           path="/reproductormp4/:id/:id_capitulo"
-          element={
-            <ReproductorMP4
-              title="Descripción"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-              labelText="Nombre del Curso"
-              secondLabelText="Título Capitulo Curso"
-              thirdLabelText="Nombre Profesor Curso"
-              images={images}
-              comments={comments}
-            />
-          }
-        />{" "}
+          element={<ReproductorMP4 />}
+        />
+
+        <Route index path="/reproductormp4/:id/" element={<ReproductorMP4 />} />
         {/* Aquí se usa el componente CommentAccordion */}
       </Routes>
     </LoginContextProvider>

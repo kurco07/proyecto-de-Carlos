@@ -87,7 +87,7 @@ const DashboardProfesor = () => {
     }
   };
   const verCurso = (curso) => {
-    navigate(`/reproductorMP4/${curso}/0`);
+    navigate(`/reproductorMP4/${curso}/`);
   };
   return (
     <Box

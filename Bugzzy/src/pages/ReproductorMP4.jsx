@@ -35,64 +35,68 @@ const ReproductorMP4 = ({ comments }) => {
           {" "}
           {/* Aquí se agrega el relleno */}
           <Navbar isLoggedIn />
-          {curso.filterPlayList && (
+          {id_capitulo && (
             <>
-              <div style={{ backgroundColor: "black" }}>
-                <div className="flex justify-center items-center mt-16">
-                  <VideoPlayer
-                    src={
-                      curso.filterPlayList[
-                        id_capitulo === "0"
-                          ? 0
-                          : curso.filterPlayList.findIndex(
-                              (el) => el.idVideoPublicacion == id_capitulo
-                            )
-                      ].video_url
-                    }
-                  />
-                </div>
-              </div>
-              <div
-                style={{
-                  marginLeft: "15%",
-                  fontSize: "32px",
-                  fontWeight: "700",
-                  letterSpacing: "-0.16px",
-                  textTransform: "uppercase",
-                  color: "#141E34",
-                  lineHeight: "40px",
-                  paddingTop: "20px",
-                  paddingRight: "5px",
-                }}
-              >
-                <div style={{ display: "flex" }}>
-                  <p style={{ paddingRight: "5px" }}>
-                    {curso.publicacion.tituloPublicacion} |
-                  </p>
-                  <p
+              {curso.filterPlayList && (
+                <>
+                  <div style={{ backgroundColor: "black" }}>
+                    <div className="flex justify-center items-center mt-16">
+                      <VideoPlayer
+                        src={
+                          curso.filterPlayList[
+                            id_capitulo === "0"
+                              ? 0
+                              : curso.filterPlayList.findIndex(
+                                  (el) => el.idVideoPublicacion == id_capitulo
+                                )
+                          ].video_url
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div
                     style={{
-                      color: "var(--Go-to-actions-secondary, #15665A)",
-                      fontSize: "24px",
-                      fontStyle: "normal",
+                      marginLeft: "15%",
+                      fontSize: "32px",
                       fontWeight: "700",
-                      lineHeight: "40px",
                       letterSpacing: "-0.16px",
                       textTransform: "uppercase",
-                      paddingTop: "2px",
+                      color: "#141E34",
+                      lineHeight: "40px",
+                      paddingTop: "20px",
+                      paddingRight: "5px",
                     }}
                   >
-                    {
-                      curso.filterPlayList[
-                        id_capitulo === "0"
-                          ? 0
-                          : curso.filterPlayList.findIndex(
-                              (el) => el.idVideoPublicacion == id_capitulo
-                            )
-                      ].tituloCapitulo
-                    }
-                  </p>
-                </div>
-              </div>
+                    <div style={{ display: "flex" }}>
+                      <p style={{ paddingRight: "5px" }}>
+                        {curso.publicacion.tituloPublicacion} |
+                      </p>
+                      <p
+                        style={{
+                          color: "var(--Go-to-actions-secondary, #15665A)",
+                          fontSize: "24px",
+                          fontStyle: "normal",
+                          fontWeight: "700",
+                          lineHeight: "40px",
+                          letterSpacing: "-0.16px",
+                          textTransform: "uppercase",
+                          paddingTop: "2px",
+                        }}
+                      >
+                        {
+                          curso.filterPlayList[
+                            id_capitulo === "0"
+                              ? 0
+                              : curso.filterPlayList.findIndex(
+                                  (el) => el.idVideoPublicacion == id_capitulo
+                                )
+                          ].tituloCapitulo
+                        }
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           )}
           <div
@@ -120,6 +124,28 @@ const ReproductorMP4 = ({ comments }) => {
               {curso.creador.usuario}
             </p>
           </div>
+          {!id_capitulo && (
+            <>
+              <div style={{ display: "flex", marginTop: "50px" }}>
+                <p
+                  style={{
+                    marginLeft: "4%",
+                    fontSize: "32px",
+                    fontWeight: "700",
+                    letterSpacing: "-0.16px",
+                    textTransform: "uppercase",
+                    color: "#141E34",
+                    lineHeight: "40px",
+                    paddingTop: "20px",
+                    paddingRight: "5px",
+                  }}
+                >
+                  {curso.publicacion.tituloPublicacion} |{" "}
+                  {curso.creador.usuario}
+                </p>
+              </div>
+            </>
+          )}
           <SimpleAccordion
             title={"Descripcion"}
             description={curso.publicacion}
@@ -129,7 +155,11 @@ const ReproductorMP4 = ({ comments }) => {
             creador={curso.creador.usuario}
           />{" "}
           {/* Aquí se usa el componente ComplexAccordion */}
-          <CommentAccordion comments={comments} />{" "}
+          {id_capitulo && (
+            <>
+              <CommentAccordion comments={comments} />{" "}
+            </>
+          )}
           {/* Aquí se usa el componente CommentAccordion */}
           <Footer />
         </div>
