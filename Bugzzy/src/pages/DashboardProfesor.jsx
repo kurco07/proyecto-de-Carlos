@@ -24,10 +24,16 @@ const DashboardProfesor = () => {
       const response = await obtenerCursos();
       const playlist = await capitloCursos();
       const getUser = await login(localStorage.getItem("cedula"));
+
       const filterResponse = response.filter(
         ({ cedulaCreador }) => cedulaCreador === localStorage.getItem("cedula")
       );
-      setCursos({ playlist, response, filterResponse });
+
+      const filterPlayList = playlist.filter(({ idPublicacion }) =>
+        filterResponse.some((curso) => curso.idPublicacion === idPublicacion)
+      );
+
+      setCursos({ playlist, response, filterResponse, filterPlayList });
       setCurrentUser(getUser);
     };
 
@@ -84,23 +90,27 @@ const DashboardProfesor = () => {
               flexDirection={"column"}
               justifyContent={"center"}
             >
-              <Box display={"flex"} alignItems={"center"} gap={"30px"}>
-                <Typography
-                  height={"70px"}
-                  color={"#1e2229"}
-                  fontSize={"55px"}
-                  fontWeight={700}
-                >
-                  55
-                </Typography>
-                <VideoCallIcon
-                  sx={{
-                    mt: "15px",
-                    fontSize: "55px",
-                  }}
-                  color="disabled"
-                />
-              </Box>
+              {cursos.filterPlayList && (
+                <Box display={"flex"} alignItems={"center"} gap={"30px"}>
+                  <Typography
+                    height={"70px"}
+                    color={"#1e2229"}
+                    fontSize={"55px"}
+                    fontWeight={700}
+                  >
+                    {cursos.filterPlayList.length < 10
+                      ? "0" + cursos.filterPlayList.length
+                      : cursos.filterPlayList.length}
+                  </Typography>
+                  <VideoCallIcon
+                    sx={{
+                      mt: "15px",
+                      fontSize: "55px",
+                    }}
+                    color="disabled"
+                  />
+                </Box>
+              )}
               <Divider />
               <Typography mt={"5px"} color={"#1e2229"} fontSize={"11px"}>
                 Capitulos publicados
