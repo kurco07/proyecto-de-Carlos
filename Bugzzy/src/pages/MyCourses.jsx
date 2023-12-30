@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Drawer, List, ListItem, Typography } from "@mui/material";
+import {
+  Box,
+  Drawer,
+  List,
+  ListItem,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +17,7 @@ import {
 } from "../services/cursos";
 import { useState, useEffect } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import DoneIcon from "@mui/icons-material/Done";
 
 const MyCourses = () => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
@@ -43,8 +50,15 @@ const MyCourses = () => {
 
         // Obtener los cursos iniciados del usuario actual
         const cursosIniciadosUsuario = filterIniciados.map(
-          ({ idPublicacion }) =>
-            response.find((curso) => curso.idPublicacion === idPublicacion)
+          ({ idPublicacion, ...rest }) => {
+            const cursoIniciado = response.find(
+              (curso) => curso.idPublicacion === idPublicacion
+            );
+            return {
+              ...rest, // Incluimos otras propiedades de filterIniciados si las hay
+              ...cursoIniciado,
+            };
+          }
         );
 
         setCursos({
@@ -189,7 +203,10 @@ const MyCourses = () => {
                             {descripcionPublicacion.slice(0, 150)}...
                           </Typography>
 
-                          <Box display={"flex"}>
+                          <Box
+                            display={"flex"}
+                            justifyContent={"space-between"}
+                          >
                             <Typography
                               fontSize={"13px"}
                               sx={{
@@ -206,7 +223,32 @@ const MyCourses = () => {
                               Continuar viendo
                               <ArrowForwardIcon fontSize="small" />
                             </Typography>
-                            <CheckCircleIcon />
+                            <Box
+                              alignItems={"center"}
+                              display={"flex"}
+                              flexDirection={"row"}
+                            >
+                              <Typography
+                                component={"button"}
+                                onClick={() => finalizarCurso()}
+                                fontSize={"13px"}
+                                sx={{
+                                  color: "#33b1ff",
+                                  "&:hover": {
+                                    bgcolor: "#33b1ff00",
+
+                                    scale: "1.02",
+                                  },
+                                }}
+                              >
+                                Finalizar
+                                <DoneIcon
+                                  sx={{
+                                    fontSize: "18px",
+                                  }}
+                                />
+                              </Typography>
+                            </Box>
                           </Box>
                         </Box>
                       </Box>
