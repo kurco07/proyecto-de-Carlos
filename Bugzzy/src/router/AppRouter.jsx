@@ -13,6 +13,7 @@ import { ProtectedLogin } from "./ProtectedRoutes";
 import Profile from "../pages/Profile";
 import RegisterProfesores from "../pages/registerProfesor";
 import DashboardProfesor from "../pages/DashboardProfesor";
+import TodosLosCursos from "../pages/TodosLosCursos";
 
 const AppRouter = () => {
   // Define tus imágenes y etiquetas aquí
@@ -80,6 +81,8 @@ const AppRouter = () => {
           }
         />
         <Route index path="/cursos-progreso" element={<MyCourses />} />
+        <Route index path="/cursos" element={<TodosLosCursos />} />
+
         <Route index path="/profile" element={<Profile />} />
         <Route
           index

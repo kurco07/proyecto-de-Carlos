@@ -84,7 +84,20 @@ export function Navbar({ isLoggedIn }) {
               Bugzzy
             </Button>
           </Box>
-
+          <Box mr={"230px"}>
+            <Button onClick={() => navigate("/homepage")} color="inherit">
+              Inicio
+            </Button>
+            <Button onClick={() => navigate("/cursos")} color="inherit">
+              Cursos
+            </Button>
+            <Button
+              onClick={() => navigate("/cursos-progreso")}
+              color="inherit"
+            >
+              Cursos en progreso
+            </Button>
+          </Box>
           <Box>
             {isLoggedIn ? (
               <>

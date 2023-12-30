@@ -346,7 +346,6 @@ const DashboardProfesor = () => {
                             width={"100%"}
                             padding={"20px"}
                             gap={"10px"}
-                            zIndex={"999"}
                           >
                             <SlowMotionVideoIcon color="info" />
                             <Typography color={"#C5DD4A"} variant="subtitle1">

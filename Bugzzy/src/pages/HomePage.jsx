@@ -37,6 +37,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
   const [cursos, setCursos] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
 
   const [currentUser, setCurrentUser] = useState({});
   const staffMembers = [
@@ -163,7 +164,10 @@ const HomePage = () => {
             width={"670px"}
             display={"flex"}
           >
-            <IconButton color="inherit">
+            <IconButton
+              onClick={() => navigate(`/cursos/${busqueda}`)}
+              color="inherit"
+            >
               <SearchIcon />
             </IconButton>
 
@@ -171,7 +175,7 @@ const HomePage = () => {
               fullWidth
               placeholder="¿ Que quieres aprender hoy ?"
               sx={{ ml: 1, color: "#C5DD4A" }}
-              onChange={(e) => e.key === "Enter" && handleSearch()}
+              onChange={({ target }) => setBusqueda(target.value)}
             />
           </Box>
           <ProfesorNotofication rol={currentUser.rol} />
@@ -302,7 +306,7 @@ const HomePage = () => {
                             width={"100%"}
                             padding={"20px"}
                             gap={"10px"}
-                            zIndex={"999"}
+                            zIndex={"9"}
                             boxShadow={"10px 0px 15px #00000090"}
                           >
                             <SlowMotionVideoIcon color="info" />

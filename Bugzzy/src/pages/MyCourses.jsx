@@ -144,6 +144,7 @@ const MyCourses = () => {
           display={"flex"}
           alignItems={"center"}
           justifyContent={"center"}
+          height={"auto"}
           flexDirection={"column"}
         >
           <Typography width={"670px"} pt={"20px"} variant="h6" color={"white"}>
@@ -159,6 +160,7 @@ const MyCourses = () => {
                 flexDirection={"row"}
                 flexWrap={"wrap"}
                 gap={"10px"}
+                height={"auto"}
               >
                 {cursos.cursosIniciadosUsuario.map(
                   ({
@@ -182,7 +184,7 @@ const MyCourses = () => {
                             transition: "all .5s",
                           },
                         }}
-                        height={"360px"}
+                        height={"400px"}
                         key={idPublicacion}
                         border={"1px solid #24385b"}
                         borderRadius={"0.75rem"}
@@ -203,6 +205,7 @@ const MyCourses = () => {
                           <img
                             style={{
                               borderRadius: "0.75rem",
+                              maxHeight: "150px",
                             }}
                             src={miniatura}
                           ></img>
