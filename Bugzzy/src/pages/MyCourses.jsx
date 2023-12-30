@@ -12,6 +12,7 @@ import { Navbar } from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import {
   capitloCursos,
+  eliminarCursoIniciado,
   obtenerCursos,
   obtenerCursosIniciado,
 } from "../services/cursos";
@@ -77,6 +78,18 @@ const MyCourses = () => {
   }, []);
   console.log(cursos);
 
+  const finalizarCurso = async (curso) => {
+    try {
+      const response = await eliminarCursoIniciado(curso);
+      if (response.ok) {
+        location.reload();
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
   };
@@ -93,6 +106,7 @@ const MyCourses = () => {
         height: "auto",
         backgroundColor: "#121f3d",
         marginTop: "-30px",
+        minHeight: "700px",
         paddingBottom: "20px",
       }}
     >
@@ -152,6 +166,7 @@ const MyCourses = () => {
                     tituloPublicacion,
                     descripcionPublicacion,
                     miniatura,
+                    idCursoIniciado,
                   }) => {
                     const cantidadVideos = cursos.playlist.filter(
                       (video) => video.idPublicacion === idPublicacion
@@ -180,7 +195,6 @@ const MyCourses = () => {
                         <Box
                           display={"flex"}
                           flexDirection={"column"}
-                          justifyContent={"center"}
                           color={"white"}
                           width={"100%"}
                           padding={"20px"}
@@ -199,7 +213,11 @@ const MyCourses = () => {
                             {cantidadVideos} Clases | Certificado de
                             finalizacion
                           </Typography>
-                          <Typography fontSize={"13px"} color={"#becde3"}>
+                          <Typography
+                            fontSize={"13px"}
+                            height={"100px"}
+                            color={"#becde3"}
+                          >
                             {descripcionPublicacion.slice(0, 150)}...
                           </Typography>
 
@@ -230,7 +248,7 @@ const MyCourses = () => {
                             >
                               <Typography
                                 component={"button"}
-                                onClick={() => finalizarCurso()}
+                                onClick={() => finalizarCurso(idCursoIniciado)}
                                 fontSize={"13px"}
                                 sx={{
                                   color: "#33b1ff",
