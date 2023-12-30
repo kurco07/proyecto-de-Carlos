@@ -1,15 +1,7 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  Drawer,
-  List,
-  ListItem,
-  Typography,
-} from "@mui/material";
+import { Box, Drawer, List, ListItem, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
   capitloCursos,
@@ -18,7 +10,7 @@ import {
 } from "../services/cursos";
 import { useState, useEffect } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const MyCourses = () => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
@@ -214,6 +206,7 @@ const MyCourses = () => {
                               Continuar viendo
                               <ArrowForwardIcon fontSize="small" />
                             </Typography>
+                            <CheckCircleIcon />
                           </Box>
                         </Box>
                       </Box>
