@@ -246,5 +246,54 @@ export const comentar = async (data = {}) => {
   }
 }
 
+// Cursos en progreso
+
+export const iniciarCurso = async (data = {}) => {
+  try {
+    const response = await fetch(`${URL}/c_i/`, {
+      method: 'post',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data)
+    })
+
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const obtenerCursosIniciado = async () => {
+  try {
+    const response = await fetch(`${URL}/c_i/`, {
+      method: 'get',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
+
+
 
 

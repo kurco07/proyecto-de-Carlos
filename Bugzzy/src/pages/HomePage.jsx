@@ -11,7 +11,12 @@ import {
 } from "@mui/material";
 import { Navbar } from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import { capitloCursos, obtenerCursos } from "../services/cursos";
+import {
+  capitloCursos,
+  iniciarCurso,
+  obtenerCursos,
+  obtenerCursosIniciado,
+} from "../services/cursos";
 import { useState, useEffect } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -32,6 +37,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
   const [cursos, setCursos] = useState([]);
+
   const [currentUser, setCurrentUser] = useState({});
   const staffMembers = [
     {
@@ -65,9 +71,33 @@ const HomePage = () => {
     },
     // Puedes agregar más miembros aquí
   ];
+  const verCurso = async (curso) => {
+    // Verificar si el curso ya está iniciado
+    const cursoIniciado = cursos.filterIniciados.find(
+      ({ idPublicacion }) => idPublicacion === curso
+    );
 
-  const verCurso = (curso) => {
-    navigate(`/reproductorMP4/${curso}/`);
+    if (cursoIniciado) {
+      console.log(cursoIniciado.idPublicacion, curso);
+      navigate(`/reproductorMP4/${curso}/`);
+      return;
+    }
+
+    // Si el curso no está iniciado, llamar a la API para iniciarlo
+    try {
+      const response = await iniciarCurso({
+        estado: true,
+        idPublicacion: curso,
+        cedulaEstudiante: currentUser.cedula,
+      });
+      console.log(response);
+
+      if (response.cedulaEstudiante === localStorage.getItem("cedula")) {
+        navigate(`/reproductorMP4/${curso}/`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -75,6 +105,13 @@ const HomePage = () => {
       const response = await obtenerCursos();
       const playlist = await capitloCursos();
       const getUser = await login(localStorage.getItem("cedula"));
+      const iniciadosResponse = await obtenerCursosIniciado();
+
+      const filterIniciados = iniciadosResponse.filter(
+        ({ cedulaEstudiante }) =>
+          cedulaEstudiante === localStorage.getItem("cedula")
+      );
+
       const cantidadVideos = response.map((curso) => {
         const videos = playlist.filter(
           ({ idPublicacion }) => idPublicacion === curso.idPublicacion
@@ -82,7 +119,12 @@ const HomePage = () => {
         return videos.length;
       });
 
-      setCursos({ playlist, response, cantidadVideos });
+      setCursos({
+        playlist,
+        response,
+        cantidadVideos,
+        filterIniciados,
+      });
       setCurrentUser(getUser);
     };
 
@@ -280,7 +322,7 @@ const HomePage = () => {
                               sx={{
                                 bgcolor: "white",
                                 color: "black",
-                                width: "130px",
+                                width: "160px",
                                 "&:hover": {
                                   bgcolor: "#ffffff",
 
@@ -292,7 +334,7 @@ const HomePage = () => {
                               variant="contained"
                               endIcon={<ArrowForwardIcon />}
                             >
-                              Ir al curso
+                              Iniciar curso
                             </Button>
                           </Box>
                         </Box>
