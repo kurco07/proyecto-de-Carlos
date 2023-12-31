@@ -11,7 +11,7 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { Navigate, Link as Routerlink } from "react-router-dom";
 import { register } from "../services/usuarios";
 import { useNavigate } from "react-router-dom";
-const Register = () => {
+const RegisterProfesores = () => {
   const navigate = useNavigate();
 
   const initialCredentials = {
@@ -35,7 +35,7 @@ const Register = () => {
         const newUser = await register({
           cedula: credentials.cedula,
           correo_electronico: credentials.email,
-          rol: "Estudiante",
+          rol: "Profesor ",
           usuario: credentials.username,
           clave: credentials.password,
         });
@@ -69,7 +69,7 @@ const Register = () => {
           container
           spacing={2}
           sx={{
-            backgroundColor: "white",
+            backgroundColor: "#13161c",
             border: "1px solid gray",
             padding: "20px 20px",
             display: "flex",
@@ -99,11 +99,11 @@ const Register = () => {
                 fontSize: "24px",
                 position: "relative",
                 top: "25px",
-                color: "#2E3963",
+                color: "#C5DD4A",
                 marginTop: "60px",
               }}
             >
-              Registrarse
+              Registrarse (Profesores)
             </Typography>
           </Grid>
 
@@ -113,20 +113,45 @@ const Register = () => {
 
           <Grid xs={12}>
             <TextField
-              variant="filled"
               name="username"
               fullWidth
               label="Nombre de usuario"
               required
               type="text"
               onChange={({ target }) => getData("username", target.value)}
+              inputProps={{
+                style: {
+                  color: "white",
+                },
+              }}
+              sx={{
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                "& .MuiOutlinedInput-root": {
+                  "& > fieldset": { borderColor: "white" },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white",
+                  },
+                },
+                "& label.Mui-focused": {
+                  color: "white",
+                },
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "white" },
+                },
+                marginTop: "10px",
+                width: "100%",
+              }}
               size="small"
             />
           </Grid>
 
           <Grid xs={12}>
             <TextField
-              variant="filled"
+              inputProps={{
+                style: {
+                  color: "white",
+                },
+              }}
               name="cedula"
               fullWidth
               required
@@ -134,12 +159,48 @@ const Register = () => {
               type="text"
               onChange={({ target }) => getData("cedula", target.value)}
               size="small"
+              sx={{
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                "& .MuiOutlinedInput-root": {
+                  "& > fieldset": { borderColor: "white" },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white",
+                  },
+                },
+                "& label.Mui-focused": {
+                  color: "white",
+                },
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "white" },
+                },
+                marginTop: "10px",
+              }}
             />
           </Grid>
 
           <Grid xs={12}>
             <TextField
-              variant="filled"
+              inputProps={{
+                style: {
+                  color: "white",
+                },
+              }}
+              sx={{
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                "& .MuiOutlinedInput-root": {
+                  "& > fieldset": { borderColor: "white" },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white",
+                  },
+                },
+                "& label.Mui-focused": {
+                  color: "white",
+                },
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "white" },
+                },
+                marginTop: "10px",
+              }}
               name="email"
               required
               fullWidth
@@ -152,7 +213,27 @@ const Register = () => {
 
           <Grid xs={12}>
             <TextField
-              variant="filled"
+              inputProps={{
+                style: {
+                  color: "white",
+                },
+              }}
+              sx={{
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                "& .MuiOutlinedInput-root": {
+                  "& > fieldset": { borderColor: "white" },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white",
+                  },
+                },
+                "& label.Mui-focused": {
+                  color: "white",
+                },
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "white" },
+                },
+                marginTop: "10px",
+              }}
               name="password"
               fullWidth
               required
@@ -165,7 +246,27 @@ const Register = () => {
 
           <Grid xs={12}>
             <TextField
-              variant="filled"
+              inputProps={{
+                style: {
+                  color: "white",
+                },
+              }}
+              sx={{
+                "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                "& .MuiOutlinedInput-root": {
+                  "& > fieldset": { borderColor: "white" },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white",
+                  },
+                },
+                "& label.Mui-focused": {
+                  color: "white",
+                },
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "white" },
+                },
+                marginTop: "10px",
+              }}
               name="password"
               onChange={({ target }) =>
                 getData("confirmPassword", target.value)
@@ -183,11 +284,13 @@ const Register = () => {
               sx={{
                 bgcolor: "#C5DD4A",
                 color: "#2E3963",
-                borderRadius: "15px",
+                borderRadius: "0.20rem",
                 textTransform: "none",
                 fontWeight: "bold",
+
                 "&:hover": {
                   bgcolor: "#C5DD4A",
+                  scale: "1.02",
                 },
               }}
               variant="contained"
@@ -200,7 +303,7 @@ const Register = () => {
 
           <Grid xs={12} display="flex" justifyContent="center">
             <Link
-              sx={{ color: "#2E3963", textDecoration: "none" }}
+              sx={{ color: "white", textDecoration: "none" }}
               variant="caption"
               to="/login"
               component={Routerlink}
@@ -214,4 +317,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterProfesores;

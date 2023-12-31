@@ -5,14 +5,11 @@ import {
   Box,
   Button,
   Toolbar,
-  Typography,
-  InputBase,
   IconButton,
   Drawer,
   List,
   ListItem,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -27,11 +24,9 @@ export function Navbar({ isLoggedIn }) {
   const logOut = () => {
     setLoged(!Loged);
     localStorage.removeItem("Loged");
-    navigate("/login");
-  };
+    localStorage.removeItem("cedula");
 
-  const handleSearchToggle = () => {
-    setIsSearchExpanded(!isSearchExpanded);
+    navigate("/login");
   };
 
   const handleDrawerOpen = () => {
@@ -42,10 +37,6 @@ export function Navbar({ isLoggedIn }) {
     setIsDrawerOpen(false);
   };
 
-  const handleSearch = () => {
-    console.log("Realizar búsqueda...");
-  };
-
   return (
     <div>
       <AppBar
@@ -53,7 +44,7 @@ export function Navbar({ isLoggedIn }) {
         sx={{
           top: "0",
           width: "100%",
-          zIndex: "9999999",
+          zIndex: "99",
           backgroundColor: "#13161c",
           color: "#C5DD4A",
           borderBottom: "1px solid #2d323a",
@@ -93,7 +84,20 @@ export function Navbar({ isLoggedIn }) {
               Bugzzy
             </Button>
           </Box>
-
+          <Box mr={"230px"}>
+            <Button onClick={() => navigate("/homepage")} color="inherit">
+              Inicio
+            </Button>
+            <Button onClick={() => navigate("/cursos")} color="inherit">
+              Cursos
+            </Button>
+            <Button
+              onClick={() => navigate("/cursos-progreso")}
+              color="inherit"
+            >
+              Cursos en progreso
+            </Button>
+          </Box>
           <Box>
             {isLoggedIn ? (
               <>
@@ -116,6 +120,10 @@ export function Navbar({ isLoggedIn }) {
                   color="inherit"
                   sx={{ fontWeight: "700" }}
                 >
+                <Button onClick={() => navigate("/profile")} color="inherit">
+                  Mi Perfil
+                </Button>
+                <Button onClick={() => logOut()} color="inherit">
                   Cerrar Sesión
                 </Button>
               </>
@@ -177,14 +185,6 @@ export function Navbar({ isLoggedIn }) {
               Mis Cursos
             </ListItem>
           )}
-          <ListItem
-            button
-            onClick={handleDrawerClose}
-            component={RouterLink}
-            to="/ImportVideo"
-          >
-            Importar Video
-          </ListItem>
         </List>
       </Drawer>
     </div>

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -7,26 +6,65 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import { Button, TextField } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { comentar, comentariosCursos } from '../services/cursos';
+import { useParams } from 'react-router-dom';
+import { login } from '../services/usuarios';
 
-const CommentAccordion = ({ comments }) => {
+const CommentAccordion = () => {
+    const [comentario, setComentario] = useState('')
+    const [cargarComents, setCargarComents] = useState([])
+    const { id_capitulo } = useParams()
+    const [currentUser, setCurrentUser] = useState('')
+    useEffect(() => {
+
+        const cargarData = async () => {
+            const comentarios = await comentariosCursos()
+            const comentariosFilter = comentarios.filter(({ idCapituloPublicacion }) => idCapituloPublicacion == id_capitulo)
+            const getUser = await login(localStorage.getItem('cedula'))
+            setCargarComents(comentariosFilter)
+            setCurrentUser(getUser)
+        }
+
+        cargarData()
+
+
+    }, [id_capitulo])
+    const enviarComentario = async () => {
+        const response = await comentar({
+            "comentario": comentario,
+            "idCapituloPublicacion": id_capitulo,
+            "cedulaComentarista": currentUser.cedula
+        })
+        setCargarComents([...cargarComents, response]);
+        setComentario('')
+        console.log(cargarComents)
+    }
+
     return (
         <div>
-            <Accordion style={{boxShadow: 'none'}}>
+            <Accordion style={{ boxShadow: 'none' }}>
                 <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
                 >
-                <Typography style={{fontWeight: 'bold', fontSize: '25px', fontStyle: 'normal', lineHeight: '40px', letterSpacing: '-0.16px', textTransform: 'uppercase', paddingLeft:'50px'}}>Comentarios</Typography>
+                    <Typography style={{ fontWeight: 'bold', fontSize: '25px', fontStyle: 'normal', lineHeight: '40px', letterSpacing: '-0.16px', textTransform: 'uppercase', paddingLeft: '50px' }}>Comentarios</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Box sx={{ width: '100%', paddingLeft:'20px' }}>
-                        {comments.map((comment, index) => (
-                            <Box key={index} sx={{ display: 'flex', alignItems: 'center', mb: 1, paddingLeft:'20px', backgroundColor: '#ADD8E6', borderRadius: '10px' }}>
-                                <Avatar alt={comment.name} src={comment.image} style={{marginRight: '10px'}}/>
+                    <Box sx={{ width: '100%', paddingLeft: '20px' }}>
+                        <Box gap={'10px'} sx={{ display: 'flex', alignItems: 'center', mb: 1, padding: '20px', backgroundColor: '#ADD8E6', borderRadius: '10px' }}>
+                            <Avatar />
+                            <TextField value={comentario} onChange={({ target }) => setComentario(target.value)} variant='standard' placeholder='Escribe un comentario..' fullWidth size='small' />
+                            <Button onClick={() => enviarComentario()} disabled={comentario === ''} variant='contained'>Comentar</Button>
+                        </Box>
+                        {cargarComents.map(({ idComentarioPublicacion, comentario, cedulaComentarista }) => (
+                            <Box key={idComentarioPublicacion} sx={{ display: 'flex', alignItems: 'center', mb: 1, paddingLeft: '20px', backgroundColor: '#ADD8E6', borderRadius: '10px' }}>
+                                <Avatar style={{ marginRight: '10px' }} />
                                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Typography style={{fontWeight: 'bold', paddingTop:'10px'}}>{comment.name}</Typography>
-                                    <Typography style={{paddingBottom:'10px'}}>{comment.text}</Typography>
+                                    <Typography style={{ fontWeight: 'bold', paddingTop: '10px' }}>{cedulaComentarista}</Typography>
+                                    <Typography style={{ paddingBottom: '10px' }}>{comentario}</Typography>
                                 </Box>
                             </Box>
                         ))}
@@ -40,10 +78,10 @@ const CommentAccordion = ({ comments }) => {
 CommentAccordion.propTypes = {
     comments: PropTypes.arrayOf(
         PropTypes.shape({
-        image: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired,
-    })
+            image: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired,
+        })
     ).isRequired,
 };
 

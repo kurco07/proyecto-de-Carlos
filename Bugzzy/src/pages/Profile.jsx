@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   TextField,
   Typography,
   Divider,
   Link,
-  Box,
   Avatar,
-  List,
-  ListItem,
 } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { Link as Routerlink } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import CustomCard from "../components/CustomCard";
+import { login, updateUser } from "../services/usuarios";
 
 const isLoggedIn = true;
 
@@ -52,18 +49,53 @@ function Page({ title, children }) {
 }
 
 function UserForm() {
-  const [username, setUsername] = useState("Nombre de Usuario");
-  const [email, setEmail] = useState("correo@example.com");
-  const [password, setPassword] = useState("********");
 
-  const handleSubmit = (e) => {
+  const [usuario, setUsuario] = useState({
+    cedula: '',
+    usuario: '',
+    email: '',
+    password: '',
+  })
+
+  useEffect(() => {
+
+    const cargarData = async () => {
+      const getUser = await login(localStorage.getItem('cedula'))
+      setUsuario({
+        cedula: getUser.cedula,
+        usuario: getUser.usuario,
+        email: getUser.correo_electronico,
+        password: ''
+      })
+    }
+
+    cargarData()
+
+
+  }, [])
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // lógica para enviar los datos del formulario al backend o realizar alguna acción específica.
-    console.log("Datos del formulario enviados:", {
-      username,
-      email,
-      password,
-    });
+    try {
+      const response = await updateUser({
+        "cedula": usuario.cedula,
+        "correo_electronico": usuario.email,
+        "usuario": usuario.usuario,
+        "rol": "Estudiante",
+        "clave": usuario.password
+      })
+
+      if (response.cedula === usuario.cedula) {
+        location.reload(true)
+      }
+
+      console.log(response)
+
+    } catch (e) {
+      console.log(e)
+    }
   };
 
   // Estilos personalizados para TextField
@@ -77,38 +109,41 @@ function UserForm() {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
+        required
         label="Nombre de Usuario"
         name="username"
         fullWidth
         variant="filled"
         type="text"
         size="small"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        value={usuario.usuario}
+        onChange={(e) => setUsuario({ ...usuario, ['usuario']: e.target.value })}
         margin="normal"
         InputProps={{ style: textFieldStyle }} // Aplicar estilo al texto del input
         InputLabelProps={{ style: textFieldStyle }} // Aplicar estilo a la etiqueta del input
       />
       <TextField
+        required
         label="Correo Electrónico"
         name="email"
         type="email"
         variant="filled"
         fullWidth
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={usuario.email}
+        onChange={(e) => setUsuario({ ...usuario, ['email']: e.target.value })}
         margin="normal"
         size="small"
         InputProps={{ style: textFieldStyle }} // Aplicar estilo al texto del input
         InputLabelProps={{ style: textFieldStyle }} // Aplicar estilo a la etiqueta del input
       />
       <TextField
+        required
         variant="filled"
         name="password"
         label="Contraseña"
         fullWidth
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={usuario.password}
+        onChange={(e) => setUsuario({ ...usuario, ['password']: e.target.value })}
         margin="normal"
         type="password"
         size="small"
@@ -131,8 +166,19 @@ function UserForm() {
 }
 
 export function Profile() {
-  const [userName, setUserName] = useState("Nombre de Usuario");
   const [userTags, setUserTags] = useState(["Mate1", "Tag2", "Tag3"]);
+  const [currentUser, setCurrentUser] = useState('')
+  useEffect(() => {
+
+    const cargarData = async () => {
+      const getUser = await login(localStorage.getItem('cedula'))
+      setCurrentUser(getUser)
+    }
+
+    cargarData()
+
+
+  }, [])
 
   const pageStyle = {
     display: "flex",
@@ -198,7 +244,7 @@ export function Profile() {
 
           {/* Nombre del Usuario */}
           <Typography variant="h5" mb={2} color="#C5DD4A">
-            {userName}
+            {currentUser.usuario}
           </Typography>
 
           {/* Divider */}
