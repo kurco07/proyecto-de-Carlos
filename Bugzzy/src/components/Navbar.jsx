@@ -56,29 +56,40 @@ export function Navbar({ isLoggedIn }) {
           zIndex: "9999999",
           backgroundColor: "#13161c",
           color: "#C5DD4A",
-          borderBottom: '1px solid #2d323a'
+          borderBottom: "1px solid #2d323a",
         }}
       >
         <Toolbar
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between'
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <Box display={'flex'} gap={'5px'}>
-            <IconButton sx={{
-              display: {
-                xs: 'block',
-                sm: 'block',
-                md: 'none',
-
-              }
-            }} color="inherit" onClick={handleDrawerOpen}>
+          <Box display={"flex"} gap={"5px"}>
+            <IconButton
+              sx={{
+                display: {
+                  xs: "block",
+                  sm: "block",
+                  md: "none",
+                },
+              }}
+              color="inherit"
+              onClick={handleDrawerOpen}
+            >
               <MenuIcon />
             </IconButton>
-            <Button onClick={() => navigate('/homepage')} sx={{ fontWeight: "bold", maxWidth: '100px' }} variant="h6">
-              <img style={{ marginRight: '10px' }} width={40} height={40} src="assets/logo.svg"></img>
-
+            <Button
+              onClick={() => navigate("/homepage")}
+              sx={{ fontWeight: "bold", maxWidth: "100px" }}
+              variant="h6"
+            >
+              <img
+                style={{ marginRight: "10px" }}
+                width={40}
+                height={40}
+                src="assets/logo.svg"
+              ></img>
               Bugzzy
             </Button>
           </Box>
@@ -86,9 +97,25 @@ export function Navbar({ isLoggedIn }) {
           <Box>
             {isLoggedIn ? (
               <>
-
-                <Button onClick={() => navigate('/profile')} color="inherit">Mi Perfil</Button>
-                <Button onClick={() => logOut()} color="inherit">
+                <Button
+                  onClick={() => navigate("/courses")}
+                  color="inherit"
+                  sx={{ fontWeight: "700" }}
+                >
+                  Cursos
+                </Button>
+                <Button
+                  onClick={() => navigate("/profile")}
+                  color="inherit"
+                  sx={{ fontWeight: "700" }}
+                >
+                  Mi Perfil
+                </Button>
+                <Button
+                  onClick={() => logOut()}
+                  color="inherit"
+                  sx={{ fontWeight: "700" }}
+                >
                   Cerrar Sesión
                 </Button>
               </>
@@ -160,7 +187,7 @@ export function Navbar({ isLoggedIn }) {
           </ListItem>
         </List>
       </Drawer>
-    </div >
+    </div>
   );
 }
 
