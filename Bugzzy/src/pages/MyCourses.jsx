@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Drawer,
-  List,
-  ListItem,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Box, Drawer, List, ListItem, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { useNavigate } from "react-router-dom";

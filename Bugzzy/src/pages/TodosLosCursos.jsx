@@ -1,16 +1,13 @@
 import {
-  Backdrop,
   Box,
-  Button,
-  CircularProgress,
   Container,
-  Grid,
   IconButton,
   InputBase,
   Typography,
 } from "@mui/material";
 import { Navbar } from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import {
   capitloCursos,
   iniciarCurso,
@@ -20,16 +17,11 @@ import {
 import { useState, useEffect } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import SearchIcon from "@mui/icons-material/Search";
-import SchoolIcon from "@mui/icons-material/School";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import StarIcon from "@mui/icons-material/Star";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
+
 import { login } from "../services/usuarios";
 import ProfesorNotofication from "../components/ProfesorNotofication";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 const isLoggedIn = true;
 
@@ -38,40 +30,10 @@ const TodosLosCursos = () => {
   const [open, setOpen] = useState(true);
   const [cursos, setCursos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+  const [filterResponse, setFilterResponse] = useState([]);
 
   const [currentUser, setCurrentUser] = useState({});
-  const staffMembers = [
-    {
-      name: "Carlos Ternera",
-      position: "FullStack Developer",
-      bio: "Estudiante de 8vo semestre de ingenieria de sistemas.",
-    },
 
-    {
-      name: "Pedro Liccioni",
-      position: "Frontend Developer",
-      bio: "En cada commit que hacia se caia la app.",
-    },
-
-    {
-      name: "Mauricio Rodriguez",
-      position: "UI/UX Developer",
-      bio: "Estudiante de 8vo semestre de ingenieria informatica.",
-    },
-
-    {
-      name: "Sarai Herrera",
-      position: "Frontend Developer",
-      bio: "Estudiante de 8vo semestre de ingenieria informatica.",
-    },
-
-    {
-      name: "Tabata Vega",
-      position: "Backend Developer",
-      bio: "Estudiante de 8vo semestre de ingenieria informatica.",
-    },
-    // Puedes agregar más miembros aquí
-  ];
   const verCurso = async (curso) => {
     // Verificar si el curso ya está iniciado
     const cursoIniciado = cursos.filterIniciados.find(
@@ -126,16 +88,46 @@ const TodosLosCursos = () => {
         cantidadVideos,
         filterIniciados,
       });
+      setFilterResponse(response);
       setCurrentUser(getUser);
     };
 
     cargarCursos();
     setOpen(false);
   }, []);
-  const handleSearch = () => {
-    console.log("Realizar búsqueda...");
+  console.log(filterResponse);
+
+  const buscar = (valor) => {
+    setBusqueda(valor);
+    setFilterResponse(() =>
+      cursos.response.filter(
+        ({ tituloPublicacion, descripcionPublicacion }) =>
+          tituloPublicacion
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .includes(
+              valor
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+            ) ||
+          descripcionPublicacion
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .includes(
+              valor
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+            )
+      )
+    );
+
+    console.log(filterResponse);
   };
-  console.log(cursos, currentUser);
+  //   console.log(cursos, currentUser);
 
   return (
     <div
@@ -166,18 +158,29 @@ const TodosLosCursos = () => {
             width={"670px"}
             display={"flex"}
           >
-            <IconButton
-              onClick={() => navigate(`/cursos/${busqueda}`)}
-              color="inherit"
-            >
-              <SearchIcon />
-            </IconButton>
+            {busqueda && (
+              <IconButton
+                onClick={() => {
+                  setBusqueda("");
+                  setFilterResponse(cursos.response);
+                }}
+                color="inherit"
+              >
+                <RestartAltIcon />
+              </IconButton>
+            )}
 
+            {!busqueda && (
+              <IconButton color="inherit">
+                <SearchIcon />
+              </IconButton>
+            )}
             <InputBase
               fullWidth
+              value={busqueda}
               placeholder="¿ Que quieres aprender hoy ?"
               sx={{ ml: 1, color: "#C5DD4A" }}
-              onChange={({ target }) => setBusqueda(target.value)}
+              onChange={({ target }) => buscar(target.value)}
             />
           </Box>
           <ProfesorNotofication rol={currentUser.rol} />
@@ -217,7 +220,7 @@ const TodosLosCursos = () => {
           justifyContent={"center"}
         >
           {/* Secciones de Cursos Destacados */}
-          {cursos.response && (
+          {filterResponse && (
             <>
               <Box
                 width={"670px"}
@@ -226,7 +229,7 @@ const TodosLosCursos = () => {
                 flexDirection={"column"}
                 gap={"10px"}
               >
-                {cursos.response.map(
+                {filterResponse.map(
                   ({
                     idPublicacion,
                     tituloPublicacion,
@@ -245,6 +248,15 @@ const TodosLosCursos = () => {
                         display={"flex"}
                         flexDirection={"row"}
                         padding={"15px"}
+                        sx={{
+                          transition: "all .5s",
+                          "&:hover": {
+                            transform: "scale(1.009)",
+                            cursor: "pointer",
+                            transition: "all .5s",
+                            bgcolor: "#ffffff20",
+                          },
+                        }}
                       >
                         {/* Aquí puedes colocar la imagen y los detalles del curso */}
 
@@ -255,6 +267,16 @@ const TodosLosCursos = () => {
                           width={"150px"}
                           src={miniatura}
                         ></img>
+                        <PlayCircleIcon
+                          fontSize="large"
+                          sx={{
+                            position: "absolute",
+                            ml: "60px",
+                            mt: "30px",
+                          }}
+                          color="action"
+                        />
+
                         <Box
                           display={"flex"}
                           flexDirection={"column"}

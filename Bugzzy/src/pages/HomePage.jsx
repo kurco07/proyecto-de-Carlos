@@ -268,7 +268,7 @@ const HomePage = () => {
                 gap={"10px"}
               >
                 {cursos.response
-                  .slice(0, 4)
+                  .slice(0, 3)
                   .map(
                     ({
                       idPublicacion,
