@@ -22,6 +22,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { login } from "../services/usuarios";
 import ProfesorNotofication from "../components/ProfesorNotofication";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import { useParams } from "react-router-dom";
 
 const isLoggedIn = true;
 
@@ -29,11 +30,11 @@ const TodosLosCursos = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
   const [cursos, setCursos] = useState([]);
+  const { input } = useParams();
   const [busqueda, setBusqueda] = useState("");
   const [filterResponse, setFilterResponse] = useState([]);
 
   const [currentUser, setCurrentUser] = useState({});
-
   const verCurso = async (curso) => {
     // Verificar si el curso ya está iniciado
     const cursoIniciado = cursos.filterIniciados.find(
@@ -61,6 +62,37 @@ const TodosLosCursos = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const buscar = (valor) => {
+    setBusqueda(valor);
+    setFilterResponse(() =>
+      cursos.response.filter(
+        ({ tituloPublicacion, descripcionPublicacion }) =>
+          tituloPublicacion
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .includes(
+              valor
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+            ) ||
+          descripcionPublicacion
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .includes(
+              valor
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+            )
+      )
+    );
+
+    console.log(filterResponse);
   };
 
   useEffect(() => {
@@ -94,40 +126,8 @@ const TodosLosCursos = () => {
 
     cargarCursos();
     setOpen(false);
-  }, []);
-  console.log(filterResponse);
-
-  const buscar = (valor) => {
-    setBusqueda(valor);
-    setFilterResponse(() =>
-      cursos.response.filter(
-        ({ tituloPublicacion, descripcionPublicacion }) =>
-          tituloPublicacion
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .includes(
-              valor
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-            ) ||
-          descripcionPublicacion
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .includes(
-              valor
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-            )
-      )
-    );
-
-    console.log(filterResponse);
-  };
-  //   console.log(cursos, currentUser);
+    setBusqueda(input);
+  }, [input]);
 
   return (
     <div
