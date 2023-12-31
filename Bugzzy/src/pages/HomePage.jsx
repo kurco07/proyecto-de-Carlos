@@ -662,6 +662,11 @@ const HomePage = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+
+      <Typography padding={"5px"} color={"#ffffff50"}>
+        Todos los derechos reservados © 2024 Buggzy Networks. UGMA Guayana.
+        Versión 1.0.1.
+      </Typography>
     </div>
   );
 };
